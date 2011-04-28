@@ -90,7 +90,7 @@
     (if (and (n-on-stack? 1 :auxiliary state)
 	     (not= :no-stack-item (top-item :auxiliary state)))
       (let [loc (top-item :auxiliary state)
-	    g (add-node loc (gensym))]
+	    g (add-node loc (str "aun" (System/currentTimeMillis))]
 	(if (is-graph? g)
 	  (push-item g :auxiliary (pop-item :auxiliary state))
 	  state))
@@ -101,7 +101,7 @@
     (if (and (n-on-stack? 1 :auxiliary state)
 	     (not= :no-stack-item (top-item :auxiliary state)))
       (let [loc (top-item :auxiliary state)
-	    new-node-name (gensym)
+	    new-node-name (str "acn" (System/currentTimeMillis))
 	    g (add-node loc new-node-name)]
 	(if (is-graph? g)
 	  (-> (add-edge g (node g) new-node-name
