@@ -11,7 +11,7 @@
 			  nil)))
 (def alphabet '("a" "b"))
 (def first-100-regexps (take 100 a*ab))
-(def regexp-instructions '(start add-unconnected-node add-connected-node
+(def regexp-instructions '(start add-unconnected-node ;;add-connected-node
 				 remove-node add-edge remove-edge next
 			   	 prev generate-empty-graph))
 
@@ -90,7 +90,7 @@
     (if (and (n-on-stack? 1 :auxiliary state)
 	     (not= :no-stack-item (top-item :auxiliary state)))
       (let [loc (top-item :auxiliary state)
-	    g (add-node loc (str "aun" (System/currentTimeMillis))]
+	    g (add-node loc (str "aun" (System/currentTimeMillis)))]
 	(if (is-graph? g)
 	  (push-item g :auxiliary (pop-item :auxiliary state))
 	  state))
