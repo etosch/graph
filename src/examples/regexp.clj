@@ -61,6 +61,8 @@
 	(- 10)
 	(list))))
 
+#_(-> (random-code 10 regexp-instructions)
+      (regexp-fitness))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Push graph instructions
 
@@ -247,7 +249,4 @@
 
 
 #_(pushgp :error-function regexp-fitness
-	  :atom-generators regexp-instructions
-	  :max-generations 5
-	  :population-size 10
-	  :max-points 10)
+	  :atom-generators regexp-instructions)

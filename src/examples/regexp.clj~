@@ -51,7 +51,8 @@
   (doall
    (->> (for [regexp (map input-processed (take 10 (shuffle first-100-regexps)))]
 	  (->> (push-item (new-empty-graph) :auxiliary (make-push-state))
-	       (#(run-push program % true))
+	       ;;	       (#(run-push program % true))
+	       (run-push program)
 	       (:auxiliary)
 	       (first)
 	       (eval-machine regexp)))
