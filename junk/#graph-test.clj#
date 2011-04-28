@@ -1,0 +1,69 @@
+(def test-deterministic-regexp
+;;     ^{:doc "11*00*"}
+     (graph/fa-graph {"1" {"1" "1+", "0" 'dead}
+		    "1+" {"1" "1+", "0" "0"}
+		    "0" {"0" "0+", "1" 'dead}
+		    "0+" {"0" "0+", "1" 'dead}
+		    'dead {"0" 'dead , "1" 'dead}}
+		   #{"0+"}
+		   (fn [input] (if (= input "1") "1" 'dead))
+		   'dead))
+
+(def test-nondeterministic-regexp
+     ^{:doc "(110*01)+(1(101)*)"}
+     (graph/fa-graph {'mach1-1 {1 'mach1-2}
+		      'mach1-2 {0 #{'mach1-2 'mach1-3}}
+		      'mach1-3 {1 'mach1-4}
+		      'mach1-3 {}
+		      'mach2-1 {1 'mach2-2}
+		      'mach2-2 {0 'mach2-3}
+		      'mach2-3 {1 'mach2-1}}
+		     #{'mach1-3 'mach2-1}
+		     (fn [input] (if (= input 1) ['mach1-1 'mach2-1] :reject))
+		     :reject))
+
+(def test-deterministic-pda
+     ^{:doc "a^nb^n where n > 0"}
+     (graph/pda-graph {'a (fn [stack]
+			    (fn [input]
+			      (cond (= input 'a) 'a
+				    (= input 'b) 'b)))
+		       'b (fn [stack]
+			    (fn [input]
+			      (cond (= input 'a) 'dead
+				    (and (= input 'b) (not (empty? stack))) 'b
+				    :else 'dead)))
+		       'dead (fn [_] (fn [_] 'dead))}
+		      (fn [loc] (cond (= (graph/node loc) 'a) (conj (:stack (loc 1)) 'a)
+				      (= (graph/node loc) 'b) (rest (:stack (loc 1)))
+				      :else nil))
+		      #{'b}
+		      (fn [input] (if (= input 'a) 'a 'dead))
+		      (fn [loc] (empty? (:stack (loc 1))))
+		      'dead))
+
+(def test-nondeterministic-pda
+     ^{:doc "a^ib^jc^k where i=j or i=k and i,j,k>0"}
+     (graph/pda-graph {'a (fn [stack]
+			    (fn [input]
+			      (cond (= input 'a) 'a
+				    (= input 'b) 'b)))
+		       'b (fn [stack]
+			    (fn [input]
+			      (cond (= input 'b) 'b
+				    (= input 'c) 'c)))
+		       'c (fn [stack]
+			    (fn [input]
+			      (and (= input 'c) 'c)))}
+		      (fn [loc] (cond (= (graph/node loc) 'a) (conj (:stack (loc 1)) 'a)
+				      (= (graph/node loc) 'b) [(rest (:stack (loc 1)))
+							       (:stack (loc 1))]
+				      (= (graph/node loc) 'c) [(rest (:stack (loc 1)))
+							       (:stack (loc 1))]))
+		      #{'c}
+		      (fn [input] (if (= input 'a) 'a :reject))
+		      (fn [loc] (empty? (:stack (loc 1))))
+		      'dead))
+
+		      
+				

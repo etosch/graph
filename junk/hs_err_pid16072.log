@@ -1,0 +1,368 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0xb48fedc5, pid=16072, tid=2337327984
+#
+# JRE version: 6.0_20-b20
+# Java VM: OpenJDK Server VM (19.0-b09 mixed mode linux-x86 )
+# Derivative: IcedTea6 1.9.7
+# Distribution: Ubuntu 10.04.1 LTS, package 6b20-1.9.7-0ubuntu1~10.04.1
+# Problematic frame:
+# J  clojure.core$keep$fn__5581.invoke()Ljava/lang/Object;
+#
+# If you would like to submit a bug report, please include
+# instructions how to reproduce the bug and visit:
+#   https://bugs.launchpad.net/ubuntu/+source/openjdk-6/
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x09a6c800):  JavaThread "pool-1-thread-2" [_thread_in_Java, id=16121, stack(0x8b4bc000,0x8b50d000)]
+
+siginfo:si_signo=SIGSEGV: si_errno=0, si_code=128 (), si_addr=0x00000000
+
+Registers:
+EAX=0x00000000, EBX=0x00000000, ECX=0x00000294, EDX=0xafa24098
+ESP=0x8b506c10, EBP=0x09a6c800, ESI=0x8cc694f8, EDI=0xafa240c8
+EIP=0xb48fedc5, CR2=0xb771e000, EFLAGS=0x00210293
+
+Register to memory mapping:
+
+EAX=0x00000000
+0x00000000 is pointing to unknown location
+
+EBX=0x00000000
+0x00000000 is pointing to unknown location
+
+ECX=0x00000294
+0x00000294 is pointing to unknown location
+
+EDX=0xafa24098
+
+[error occurred during error reporting (printing registers, top of stack, instructions near pc), id 0xe0000000]
+
+Stack: [0x8b4bc000,0x8b50d000],  sp=0x8b506c10,  free space=299k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+J  clojure.core$keep$fn__5581.invoke()Ljava/lang/Object;
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x09c9f800 JavaThread "pool-1-thread-4" [_thread_blocked, id=16123, stack(0x8b46b000,0x8b4bc000)]
+  0x09774c00 JavaThread "pool-1-thread-3" [_thread_blocked, id=16122, stack(0x8b9af000,0x8ba00000)]
+=>0x09a6c800 JavaThread "pool-1-thread-2" [_thread_in_Java, id=16121, stack(0x8b4bc000,0x8b50d000)]
+  0x09773400 JavaThread "pool-1-thread-1" [_thread_blocked, id=16120, stack(0x8b95e000,0x8b9af000)]
+  0x0a168000 JavaThread "Swank Worker Thread" [_thread_blocked, id=16118, stack(0x8bbaf000,0x8bc00000)]
+  0x097ea000 JavaThread "Swank REPL Thread" [_thread_blocked, id=16116, stack(0x8bb5e000,0x8bbaf000)]
+  0x09436800 JavaThread "Read Loop Thread" [_thread_in_native, id=16096, stack(0x8b50d000,0x8b55e000)]
+  0x09434c00 JavaThread "Swank Control Thread" [_thread_blocked, id=16095, stack(0x8b55e000,0x8b5af000)]
+  0x09c27c00 JavaThread "Call-on-write Stream" [_thread_blocked, id=16094, stack(0x8b90d000,0x8b95e000)]
+  0x0938bc00 JavaThread "Call-on-write Stream" [_thread_blocked, id=16091, stack(0x8bb0d000,0x8bb5e000)]
+  0x8bab1000 JavaThread "DestroyJavaVM" [_thread_blocked, id=16076, stack(0xb76b7000,0xb7708000)]
+  0x8bab0c00 JavaThread "Socket Server [10]" [_thread_in_native, id=16090, stack(0x8b5af000,0x8b600000)]
+  0x0942f800 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=16085, stack(0x8bdec000,0x8be3d000)]
+  0x0942dc00 JavaThread "CompilerThread1" daemon [_thread_in_native, id=16084, stack(0x8be3d000,0x8bebe000)]
+  0x0942bc00 JavaThread "CompilerThread0" daemon [_thread_in_native, id=16083, stack(0x8bebe000,0x8bf3f000)]
+  0x0942a400 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=16082, stack(0x8bf3f000,0x8bf90000)]
+  0x09417000 JavaThread "Finalizer" daemon [_thread_blocked, id=16081, stack(0x8bfd6000,0x8c027000)]
+  0x09415800 JavaThread "Reference Handler" daemon [_thread_blocked, id=16080, stack(0x8c027000,0x8c078000)]
+
+Other Threads:
+  0x09411800 VMThread [stack: 0x8c078000,0x8c0f9000] [id=16079]
+  0x09431c00 WatcherThread [stack: 0x8bd6b000,0x8bdec000] [id=16086]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ PSYoungGen      total 133504K, used 97311K [0xa9b50000, 0xb45f0000, 0xb45f0000)
+  eden space 124416K, 78% used [0xa9b50000,0xafa57eb0,0xb14d0000)
+  from space 9088K, 0% used [0xb14d0000,0xb14d0000,0xb1db0000)
+  to   space 11968K, 0% used [0xb3a40000,0xb3a40000,0xb45f0000)
+ PSOldGen        total 27200K, used 13056K [0x945f0000, 0x96080000, 0xa9b50000)
+  object space 27200K, 48% used [0x945f0000,0x952b00e0,0x96080000)
+ PSPermGen       total 29696K, used 15223K [0x8c5f0000, 0x8e2f0000, 0x945f0000)
+  object space 29696K, 51% used [0x8c5f0000,0x8d4cdfc0,0x8e2f0000)
+
+Dynamic libraries:
+00115000-0011c000 r-xp 00000000 08:01 3694370    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/native_threads/libhpi.so
+0011c000-0011d000 r--p 00006000 08:01 3694370    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/native_threads/libhpi.so
+0011d000-0011e000 rw-p 00007000 08:01 3694370    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/native_threads/libhpi.so
+0011e000-00126000 r-xp 00000000 08:01 3952390    /lib/tls/i686/cmov/libnss_nis-2.11.1.so
+00126000-00127000 r--p 00007000 08:01 3952390    /lib/tls/i686/cmov/libnss_nis-2.11.1.so
+00127000-00128000 rw-p 00008000 08:01 3952390    /lib/tls/i686/cmov/libnss_nis-2.11.1.so
+00204000-00228000 r-xp 00000000 08:01 3952382    /lib/tls/i686/cmov/libm-2.11.1.so
+00228000-00229000 r--p 00023000 08:01 3952382    /lib/tls/i686/cmov/libm-2.11.1.so
+00229000-0022a000 rw-p 00024000 08:01 3952382    /lib/tls/i686/cmov/libm-2.11.1.so
+00289000-002ad000 r-xp 00000000 08:01 3670957    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libjava.so
+002ad000-002ae000 r--p 00023000 08:01 3670957    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libjava.so
+002ae000-002b0000 rw-p 00024000 08:01 3670957    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libjava.so
+003ac000-003b2000 r-xp 00000000 08:01 3694360    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libmanagement.so
+003b2000-003b3000 r--p 00005000 08:01 3694360    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libmanagement.so
+003b3000-003b4000 rw-p 00006000 08:01 3694360    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libmanagement.so
+004c8000-004cb000 r-xp 00000000 08:01 3670945    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/jli/libjli.so
+004cb000-004cc000 r--p 00003000 08:01 3670945    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/jli/libjli.so
+004cc000-004cd000 rw-p 00004000 08:01 3670945    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/jli/libjli.so
+005be000-005c5000 r-xp 00000000 08:01 3694369    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libzip.so
+005c5000-005c6000 r--p 00006000 08:01 3694369    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libzip.so
+005c6000-005c7000 rw-p 00007000 08:01 3694369    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libzip.so
+006a8000-006a9000 r-xp 00000000 00:00 0          [vdso]
+00768000-00772000 r-xp 00000000 08:01 3952388    /lib/tls/i686/cmov/libnss_files-2.11.1.so
+00772000-00773000 r--p 00009000 08:01 3952388    /lib/tls/i686/cmov/libnss_files-2.11.1.so
+00773000-00774000 rw-p 0000a000 08:01 3952388    /lib/tls/i686/cmov/libnss_files-2.11.1.so
+00791000-00798000 r-xp 00000000 08:01 3952395    /lib/tls/i686/cmov/librt-2.11.1.so
+00798000-00799000 r--p 00006000 08:01 3952395    /lib/tls/i686/cmov/librt-2.11.1.so
+00799000-0079a000 rw-p 00007000 08:01 3952395    /lib/tls/i686/cmov/librt-2.11.1.so
+007a6000-007b9000 r-xp 00000000 08:01 3932358    /lib/libz.so.1.2.3.3
+007b9000-007ba000 r--p 00012000 08:01 3932358    /lib/libz.so.1.2.3.3
+007ba000-007bb000 rw-p 00013000 08:01 3932358    /lib/libz.so.1.2.3.3
+007de000-007e4000 r-xp 00000000 08:01 3952385    /lib/tls/i686/cmov/libnss_compat-2.11.1.so
+007e4000-007e5000 r--p 00006000 08:01 3952385    /lib/tls/i686/cmov/libnss_compat-2.11.1.so
+007e5000-007e6000 rw-p 00007000 08:01 3952385    /lib/tls/i686/cmov/libnss_compat-2.11.1.so
+007f5000-00810000 r-xp 00000000 08:01 3954366    /lib/ld-2.11.1.so
+00810000-00811000 r--p 0001a000 08:01 3954366    /lib/ld-2.11.1.so
+00811000-00812000 rw-p 0001b000 08:01 3954366    /lib/ld-2.11.1.so
+00839000-0084c000 r-xp 00000000 08:01 3952384    /lib/tls/i686/cmov/libnsl-2.11.1.so
+0084c000-0084d000 r--p 00012000 08:01 3952384    /lib/tls/i686/cmov/libnsl-2.11.1.so
+0084d000-0084e000 rw-p 00013000 08:01 3952384    /lib/tls/i686/cmov/libnsl-2.11.1.so
+0084e000-00850000 rw-p 00000000 00:00 0 
+0088e000-008a2000 r-xp 00000000 08:01 3694362    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libnet.so
+008a2000-008a3000 r--p 00013000 08:01 3694362    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libnet.so
+008a3000-008a4000 rw-p 00014000 08:01 3694362    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libnet.so
+0096b000-00977000 r-xp 00000000 08:01 3694368    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libverify.so
+00977000-00978000 r--p 0000b000 08:01 3694368    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libverify.so
+00978000-00979000 rw-p 0000c000 08:01 3694368    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libverify.so
+009da000-00b2d000 r-xp 00000000 08:01 3952378    /lib/tls/i686/cmov/libc-2.11.1.so
+00b2d000-00b2e000 ---p 00153000 08:01 3952378    /lib/tls/i686/cmov/libc-2.11.1.so
+00b2e000-00b30000 r--p 00153000 08:01 3952378    /lib/tls/i686/cmov/libc-2.11.1.so
+00b30000-00b31000 rw-p 00155000 08:01 3952378    /lib/tls/i686/cmov/libc-2.11.1.so
+00b31000-00b34000 rw-p 00000000 00:00 0 
+00c5c000-00c71000 r-xp 00000000 08:01 3952393    /lib/tls/i686/cmov/libpthread-2.11.1.so
+00c71000-00c72000 r--p 00014000 08:01 3952393    /lib/tls/i686/cmov/libpthread-2.11.1.so
+00c72000-00c73000 rw-p 00015000 08:01 3952393    /lib/tls/i686/cmov/libpthread-2.11.1.so
+00c73000-00c75000 rw-p 00000000 00:00 0 
+00d3e000-00d40000 r-xp 00000000 08:01 3952381    /lib/tls/i686/cmov/libdl-2.11.1.so
+00d40000-00d41000 r--p 00001000 08:01 3952381    /lib/tls/i686/cmov/libdl-2.11.1.so
+00d41000-00d42000 rw-p 00002000 08:01 3952381    /lib/tls/i686/cmov/libdl-2.11.1.so
+00d42000-01407000 r-xp 00000000 08:01 3694371    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/server/libjvm.so
+01407000-01408000 ---p 006c5000 08:01 3694371    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/server/libjvm.so
+01408000-0144d000 r--p 006c5000 08:01 3694371    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/server/libjvm.so
+0144d000-0145c000 rw-p 0070a000 08:01 3694371    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/server/libjvm.so
+0145c000-0187b000 rw-p 00000000 00:00 0 
+08048000-08051000 r-xp 00000000 08:01 3694392    /usr/lib/jvm/java-6-openjdk/jre/bin/java
+08051000-08052000 r--p 00008000 08:01 3694392    /usr/lib/jvm/java-6-openjdk/jre/bin/java
+08052000-08053000 rw-p 00009000 08:01 3694392    /usr/lib/jvm/java-6-openjdk/jre/bin/java
+09385000-0a750000 rw-p 00000000 00:00 0          [heap]
+89f00000-89ff9000 rw-p 00000000 00:00 0 
+89ff9000-8a000000 ---p 00000000 00:00 0 
+8a000000-8a0e0000 rw-p 00000000 00:00 0 
+8a0e0000-8a100000 ---p 00000000 00:00 0 
+8a100000-8a1ff000 rw-p 00000000 00:00 0 
+8a1ff000-8a200000 ---p 00000000 00:00 0 
+8a300000-8a3fe000 rw-p 00000000 00:00 0 
+8a3fe000-8a400000 ---p 00000000 00:00 0 
+8a400000-8a4ff000 rw-p 00000000 00:00 0 
+8a4ff000-8a500000 ---p 00000000 00:00 0 
+8a500000-8a5fb000 rw-p 00000000 00:00 0 
+8a5fb000-8a600000 ---p 00000000 00:00 0 
+8a600000-8a6f4000 rw-p 00000000 00:00 0 
+8a6f4000-8a700000 ---p 00000000 00:00 0 
+8a700000-8a8fa000 rw-p 00000000 00:00 0 
+8a8fa000-8a900000 ---p 00000000 00:00 0 
+8a900000-8ab00000 rw-p 00000000 00:00 0 
+8ab00000-8ad00000 rw-p 00000000 00:00 0 
+8ad00000-8adfd000 rw-p 00000000 00:00 0 
+8adfd000-8ae00000 ---p 00000000 00:00 0 
+8af00000-8affc000 rw-p 00000000 00:00 0 
+8affc000-8b000000 ---p 00000000 00:00 0 
+8b000000-8b0e4000 rw-p 00000000 00:00 0 
+8b0e4000-8b100000 ---p 00000000 00:00 0 
+8b100000-8b1e6000 rw-p 00000000 00:00 0 
+8b1e6000-8b200000 ---p 00000000 00:00 0 
+8b200000-8b2ef000 rw-p 00000000 00:00 0 
+8b2ef000-8b300000 ---p 00000000 00:00 0 
+8b300000-8b3e4000 rw-p 00000000 00:00 0 
+8b3e4000-8b400000 ---p 00000000 00:00 0 
+8b46b000-8b46e000 ---p 00000000 00:00 0 
+8b46e000-8b4bc000 rw-p 00000000 00:00 0 
+8b4bc000-8b4bf000 ---p 00000000 00:00 0 
+8b4bf000-8b50d000 rw-p 00000000 00:00 0 
+8b50d000-8b510000 ---p 00000000 00:00 0 
+8b510000-8b55e000 rw-p 00000000 00:00 0 
+8b55e000-8b561000 ---p 00000000 00:00 0 
+8b561000-8b5af000 rw-p 00000000 00:00 0 
+8b5af000-8b5b2000 ---p 00000000 00:00 0 
+8b5b2000-8b600000 rw-p 00000000 00:00 0 
+8b600000-8b7fc000 rw-p 00000000 00:00 0 
+8b7fc000-8b800000 ---p 00000000 00:00 0 
+8b800000-8b8fe000 rw-p 00000000 00:00 0 
+8b8fe000-8b900000 ---p 00000000 00:00 0 
+8b90d000-8b910000 ---p 00000000 00:00 0 
+8b910000-8b95e000 rw-p 00000000 00:00 0 
+8b95e000-8b961000 ---p 00000000 00:00 0 
+8b961000-8b9af000 rw-p 00000000 00:00 0 
+8b9af000-8b9b2000 ---p 00000000 00:00 0 
+8b9b2000-8ba00000 rw-p 00000000 00:00 0 
+8ba00000-8bae2000 rw-p 00000000 00:00 0 
+8bae2000-8bb00000 ---p 00000000 00:00 0 
+8bb0d000-8bb10000 ---p 00000000 00:00 0 
+8bb10000-8bb5e000 rw-p 00000000 00:00 0 
+8bb5e000-8bb61000 ---p 00000000 00:00 0 
+8bb61000-8bbaf000 rw-p 00000000 00:00 0 
+8bbaf000-8bbb2000 ---p 00000000 00:00 0 
+8bbb2000-8bc00000 rw-p 00000000 00:00 0 
+8bc00000-8bcec000 rw-p 00000000 00:00 0 
+8bcec000-8bd00000 ---p 00000000 00:00 0 
+8bd2c000-8bd2e000 r--s 00009000 08:01 934791     /home/emma/dev/clojure/graph/lib/dev/swank-clojure-1.2.1.jar
+8bd2e000-8bd35000 r--s 0006e000 08:01 933886     /home/emma/dev/clojure/graph/lib/clojure-contrib-1.2.0.jar
+8bd35000-8bd64000 r--s 002e8000 08:01 928570     /home/emma/dev/clojure/graph/lib/clojure-1.2.0.jar
+8bd64000-8bd6b000 r--s 00069000 08:01 934786     /home/emma/dev/clojure/graph/lib/clojush-20110118-kephale.21.jar
+8bd6b000-8bd6c000 ---p 00000000 00:00 0 
+8bd6c000-8bdec000 rw-p 00000000 00:00 0 
+8bdec000-8bdef000 ---p 00000000 00:00 0 
+8bdef000-8be3d000 rw-p 00000000 00:00 0 
+8be3d000-8be40000 ---p 00000000 00:00 0 
+8be40000-8bebe000 rw-p 00000000 00:00 0 
+8bebe000-8bec1000 ---p 00000000 00:00 0 
+8bec1000-8bf3f000 rw-p 00000000 00:00 0 
+8bf3f000-8bf42000 ---p 00000000 00:00 0 
+8bf42000-8bf90000 rw-p 00000000 00:00 0 
+8bf90000-8bf97000 r--s 00000000 08:01 3170255    /usr/lib/gconv/gconv-modules.cache
+8bf97000-8bfd6000 r--p 00000000 08:01 3153809    /usr/lib/locale/en_US.utf8/LC_CTYPE
+8bfd6000-8bfd9000 ---p 00000000 00:00 0 
+8bfd9000-8c027000 rw-p 00000000 00:00 0 
+8c027000-8c02a000 ---p 00000000 00:00 0 
+8c02a000-8c078000 rw-p 00000000 00:00 0 
+8c078000-8c079000 ---p 00000000 00:00 0 
+8c079000-8c0f9000 rw-p 00000000 00:00 0 
+8c0f9000-8c0fb000 r--s 0001d000 08:01 3694348    /usr/lib/jvm/java-6-openjdk/jre/lib/plugin.jar
+8c0fb000-8c100000 r--s 00044000 08:01 3694347    /usr/lib/jvm/java-6-openjdk/jre/lib/netx.jar
+8c100000-8c133000 rw-p 00000000 00:00 0 
+8c133000-8c2c2000 r--s 038c2000 08:01 3670941    /usr/lib/jvm/java-6-openjdk/jre/lib/rt.jar
+8c2c2000-8c2c3000 ---p 00000000 00:00 0 
+8c2c3000-8c343000 rw-p 00000000 00:00 0 
+8c343000-8c344000 ---p 00000000 00:00 0 
+8c344000-8c3d3000 rw-p 00000000 00:00 0 
+8c3d3000-8c404000 rw-p 00000000 00:00 0 
+8c404000-8c412000 rw-p 00000000 00:00 0 
+8c412000-8c4af000 rw-p 00000000 00:00 0 
+8c4af000-8c4be000 rw-p 00000000 00:00 0 
+8c4be000-8c4ef000 rw-p 00000000 00:00 0 
+8c4ef000-8c4fd000 rw-p 00000000 00:00 0 
+8c4fd000-8c599000 rw-p 00000000 00:00 0 
+8c599000-8c5ef000 rw-p 00000000 00:00 0 
+8c5ef000-8e2f0000 rw-p 00000000 00:00 0 
+8e2f0000-945f0000 rw-p 00000000 00:00 0 
+945f0000-96080000 rw-p 00000000 00:00 0 
+96080000-a9b50000 rw-p 00000000 00:00 0 
+a9b50000-b45f0000 rw-p 00000000 00:00 0 
+b45f0000-b45f4000 r--s 0007c000 08:01 3694343    /usr/lib/jvm/java-6-openjdk/jre/lib/jsse.jar
+b45f4000-b45f7000 r--s 0000f000 08:01 3694332    /usr/lib/jvm/java-6-openjdk/jre/lib/ext/pulse-java.jar
+b45f7000-b4601000 rw-p 00000000 00:00 0 
+b4601000-b46b7000 rw-p 00000000 00:00 0 
+b46b7000-b4917000 rwxp 00000000 00:00 0 
+b4917000-b76b7000 rw-p 00000000 00:00 0 
+b76b7000-b76ba000 ---p 00000000 00:00 0 
+b76ba000-b770b000 rw-p 00000000 00:00 0 
+b770c000-b7715000 r--s 00065000 08:01 3286818    /usr/share/java/gnome-java-bridge.jar
+b7715000-b771d000 rw-s 00000000 08:01 4594454    /tmp/hsperfdata_emma/16072
+b771d000-b771e000 rw-p 00000000 00:00 0 
+b771e000-b771f000 r--p 00000000 00:00 0 
+b771f000-b7721000 rw-p 00000000 00:00 0 
+bfcbe000-bfcd3000 rw-p 00000000 00:00 0          [stack]
+
+VM Arguments:
+jvm_args: -Dleiningen.original.pwd=/home/emma/dev/clojure/graph -Dclojure.compile.path=/home/emma/dev/clojure/graph/classes -Dgraph.version=1.0.0-SNAPSHOT 
+java_command: clojure.main -e (do nil (def *classpath* "/home/emma/dev/clojure/graph/src:/home/emma/dev/clojure/graph/test:/home/emma/dev/clojure/graph/classes:/home/emma/dev/clojure/graph/lib/clojush-20110118-kephale.21.jar:/home/emma/dev/clojure/graph/lib/clojure-1.2.0.jar:/home/emma/dev/clojure/graph/lib/clojure-contrib-1.2.0.jar:/home/emma/dev/clojure/graph/lib/dev/swank-clojure-1.2.1.jar") (set! *warn-on-reflection* nil) (do (clojure.core/require (quote swank.swank)) ((clojure.core/deref (clojure.core/ns-resolve (quote swank.swank) (quote start-repl))) (java.lang.Integer. 4005) :host "localhost")))
+
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/home/emma/dev/bin:~/lein.sh
+USERNAME=emma
+LD_LIBRARY_PATH=/usr/lib/jvm/java-6-openjdk/jre/lib/i386/server:/usr/lib/jvm/java-6-openjdk/jre/lib/i386:/usr/lib/jvm/java-6-openjdk/jre/../lib/i386:/usr/lib/jvm/java-6-openjdk/jre/lib/i386/client:/usr/lib/jvm/java-6-openjdk/jre/lib/i386:/usr/lib/jvm/java-6-openjdk/jre/../lib/i386
+SHELL=/bin/bash
+DISPLAY=:0.0
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0x649f60], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGBUS: [libjvm.so+0x649f60], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGFPE: [libjvm.so+0x51bff0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGPIPE: [libjvm.so+0x51bff0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGXFSZ: [libjvm.so+0x51bff0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGILL: [libjvm.so+0x51bff0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGUSR1: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGUSR2: [libjvm.so+0x51b6a0], sa_mask[0]=0x00000004, sa_flags=0x10000004
+SIGHUP: [libjvm.so+0x51e210], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGINT: [libjvm.so+0x51e210], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGTERM: [libjvm.so+0x51e210], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGQUIT: [libjvm.so+0x51e210], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+
+
+---------------  S Y S T E M  ---------------
+
+OS:Ubuntu 10.04 (lucid)
+uname:Linux 2.6.32-31-generic #61-Ubuntu SMP Fri Apr 8 18:24:35 UTC 2011 i686
+libc:glibc 2.11.1 NPTL 2.11.1 
+rlimit: STACK 8192k, CORE 0k, NPROC infinity, NOFILE 1024, AS infinity
+load average:2.03 3.81 2.57
+
+/proc/meminfo:
+MemTotal:        2052408 kB
+MemFree:           61500 kB
+Buffers:            3152 kB
+Cached:           185736 kB
+SwapCached:        47212 kB
+Active:          1249228 kB
+Inactive:         671840 kB
+Active(anon):    1206244 kB
+Inactive(anon):   638548 kB
+Active(file):      42984 kB
+Inactive(file):    33292 kB
+Unevictable:          48 kB
+Mlocked:              48 kB
+HighTotal:       1178440 kB
+HighFree:           6284 kB
+LowTotal:         873968 kB
+LowFree:           55216 kB
+SwapTotal:       3227640 kB
+SwapFree:        1295496 kB
+Dirty:                84 kB
+Writeback:             0 kB
+AnonPages:       1685760 kB
+Mapped:            37868 kB
+Shmem:            112488 kB
+Slab:              24860 kB
+SReclaimable:       9528 kB
+SUnreclaim:        15332 kB
+KernelStack:        2456 kB
+PageTables:         8876 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     4253844 kB
+Committed_AS:    4426956 kB
+VmallocTotal:     122880 kB
+VmallocUsed:       29208 kB
+VmallocChunk:      24448 kB
+HardwareCorrupted:     0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       4096 kB
+DirectMap4k:       16376 kB
+DirectMap4M:      892928 kB
+
+
+CPU:total 2 (2 cores per cpu, 1 threads per core) family 6 model 15 stepping 13, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3
+
+Memory: 4k page, physical 2052408k(61500k free), swap 3227640k(1295496k free)
+
+vm_info: OpenJDK Server VM (19.0-b09) for linux-x86 JRE (1.6.0_20-b20), built on Feb 23 2011 19:45:38 by "buildd" with gcc 4.4.3
+
+time: Tue Apr 26 21:49:13 2011
+elapsed time: 117 seconds
+
