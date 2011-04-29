@@ -3,15 +3,29 @@
 (ns graph-utils.fa
   ^{:doc "Finite Automaton implementation"
     :author "Emma Tosch"}
-  (:use [graph]))
+  (:require [graph :only 'add-edge])
+  (:use [graph :exclude 'add-edge]))
 
+(defn add-edge
+  [loc from to test transition-update read]
+  (let [g (graph/add-edge loc from to test transition-update)]
+    (if (= (edges g) (edges loc))
+      g
+      (with-meta g
+	(assoc (meta g)
+	  :edges (let [edge (find-first #(and (= from (:from %))
+					      (= to (:to %)))
+					(edges g))]
+		   (cons (assoc edge :read read)
+			 (remove #(= edge %) (edges g)))))))))
+	  
 (defn edge-transition-rule
   "General form of a fa transition rule."
   [from to read]
   (fn [loc input]
     (assert (meta loc))
     (make-graph loc to (conj (path loc) from)
-		(cond (= input :epsilon)(:input (loc 1))
+		(cond (= read :epsilon)(:input (loc 1))
 		      input [(rest (input-remaining loc))
 			     (rcons read (input-processed loc))]
 		      :else [nil (rcons read (input-processed loc))])
@@ -20,7 +34,7 @@
 (defn edge-test
   [read]
   (fn [loc input] (assert (meta loc))
-    (or (not input) (= read input))))
+    (or (= read :epsilon) (not input) (= read input))))
 
 (defn fa-graph
   "Returns a graph representing a finite automaton.
@@ -52,7 +66,9 @@ input is a sequence or string to be processed. If the input is anything other th
 	     (for [[from trans] transition-map
 		   [read states] trans
 		   to (if (coll? states) states (list states))]
-	       {:from from :to to :test (edge-test read) :transition-update (edge-transition-rule from to read)})
+	       {:from from :to to :test (edge-test read)
+		:transition-update (edge-transition-rule from to read)
+		:read read})
 	     (cond (coll? input) input (string? input) (map str input) :else '())
 	     *accept-rule*
 	     *reject-rule*
@@ -69,7 +85,6 @@ input is a sequence or string to be processed. If the input is anything other th
 	  (step-wise [s] (concat (step s loc) (lazy-seq (step-wise (inc s)))))]
     (step-wise 1)))
 
-     
 ;; (defn evaluate [loc]
 ;;   "Evaluates a single graph, given that it contains its input."
 ;;   (assert (meta loc))
@@ -91,9 +106,9 @@ input is a sequence or string to be processed. If the input is anything other th
 
 #_(def a*ab (fa-graph {'a* {"a" ['a* 'a*a]}
 		      'a*a {"b" 'a*ab}}
-		     {'start {"a" ['a* 'a*a] "b" 'dead}}
-		    #{'a*ab}
-		    "aaaaaaaaaaaaaaaaaaabab"))
+		      {'start {"a" ['a* 'a*a] "b" 'dead :epsilon 'dead-2}}
+		      #{'a*ab}
+		      "aab"))
 
 ;;(map #(apply str %) (map input-processed (take 5 (enumerate a*ab))))
 

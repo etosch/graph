@@ -7,6 +7,10 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; aux functions
+(defn not-nil-or-empty? [thing]
+  (not (or (nil? thing)
+	   (and (coll? thing) (empty? thing)))))
+
 (defn find-first
   [pred coll]
   (first (filter pred coll)))
@@ -16,15 +20,6 @@
   [item coll]
   ^{:author "Kyle Harrington"}
   (reverse (cons item (reverse coll))))
-
-(defn not-nil-or-empty?
-  "If nil or empty, returns false. Else returns the coll.
-Will return false for the empty list and nil for nil. To be used in a boolean
-context, esp. with if-let."
-  [coll]
-  (and (or (and (coll? coll) (not (empty? coll)))
-	   (not (coll? coll)))
-       coll))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; graph functions
 
@@ -81,10 +76,8 @@ aux-struct is an auxilary data structure that may be updated as the graph proces
 (defn accept-fn [loc] (:accept-rule (meta loc)))
 (defn reject-fn [loc] (:reject-rule (meta loc)))
 (defn transition-fn
-  ([loc input] (assert (meta loc))
-     (((:transition-rule (meta loc)) loc) input))
-  ([loc] (assert (meta loc))
-     (transition-fn loc nil)))
+  ([loc input] (((:transition-rule (meta loc)) loc) input))
+  ([loc] (transition-fn loc nil)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; movement operations
@@ -93,26 +86,21 @@ aux-struct is an auxilary data structure that may be updated as the graph proces
 
 (defn next-generator
   [loc]
-  (assert (meta loc))
   (if (seq? loc)
     (mapcat next-generator loc)
     (transition-fn loc false)))
 
 (defn next-processor
-  ([loc input] 
+  ([loc input]
      (if (seq? loc)
        (mapcat next-processor loc (repeat input))
-       (do (assert (meta loc))
-	   (transition-fn loc input))))
-  ([loc] 
+       (transition-fn loc input)))
+  ([loc]
      (if (seq? loc)
        (mapcat next-processor loc)
-       (do (assert (meta loc))
-	   (next-processor loc (first (input-remaining loc)))))))
+       (next-processor loc (first (input-remaining loc))))))
 
 (defn prev
-  "prev can take a list of graph instances or a single graph instance.
-returns one previous graph instance for each input."
   [loc]
   (if (seq? loc)
     (mapcat prev loc)
@@ -127,7 +115,7 @@ returns one previous graph instance for each input."
 (defn move-graph
   "Picks up and moves a graph without reading input.
 If the supplied to node is not in the graph, returns loc."
-  [loc n] (assert (meta loc))
+  [loc n]
   (if (contains? (nodes loc) n)
     (with-meta [n (assoc (loc 1) :path (cons n (path loc)))]
       (meta loc))
@@ -137,15 +125,15 @@ If the supplied to node is not in the graph, returns loc."
 ;; topology altering functions
 
 (defn add-node
-  "Adds a single new interior node without edges to a single graph instance."
-  [loc n] (assert (meta loc))
+  "Adds new interior nodes without edges."
+  [loc n]
   (with-meta loc
     (assoc (meta loc)
       :nodes (conj (nodes loc) n))))
     
 (defn remove-node
   "Removes all interior nodes and attached edges. "
-  [loc n] (assert (meta loc))
+  [loc n]
   (if-not (or (coll? n) (not n))
     (with-meta (if (= n (node loc)) (prev loc) loc)
       (assoc (meta loc)
@@ -156,7 +144,7 @@ If the supplied to node is not in the graph, returns loc."
 (defn add-edge
   "Adds a new edge between two existing nodes.
 Allows multiple edges between nodes, allowing for multiple transition functions."
-  [loc from to test transition-update]  (assert (meta loc))
+  [loc from to test transition-update]
   (if (set/subset? (set (list from to)) (nodes loc))
     (with-meta loc
       (assoc (meta loc)
@@ -169,7 +157,7 @@ Allows multiple edges between nodes, allowing for multiple transition functions.
   "Removes an edge from the graph.
 If the edge indicated does not exist, just returns the graph.
 If there are multiple edges between nodes, this function will remove all of them."
-  [loc from to] (assert (meta loc))
+  [loc from to]
   (if (and from to (not (coll? from)) (not (coll? to)))
     (with-meta loc
       (assoc (meta loc)

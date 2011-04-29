@@ -1,0 +1,43 @@
+;; This buffer is for notes you don't want to save, and for Lisp evaluation.
+;; If you want to create a file, visit that file with C-x C-f,
+;; then enter the text in that file's own buffer.
+
+;; adds one connected node for each element of the alphabet
+;; (define-registered add-connected-nodes
+;;   (fn [state]
+;;     (if (and (n-on-stack? 1 :auxiliary state)
+;; 	     (not= :no-stack-item (top-item :auxiliary state))
+;; 	     (is-graph? (top-item :auxiliary state)))
+;;       (let [g (loop [loc (top-item :auxiliary state)
+;; 		     remaining-reads alphabet
+;; 		     to (gensym "NODE::")]
+;; 		(if (empty? remaining-reads)
+;; 		  loc
+;; 		  (recur (add-edge (add-node loc to)
+;; 				   (node loc)
+;; 				   to
+;; 				   (edge-test (first remaining-reads))
+;; 				   (edge-transition-rule (node loc) to (first remaining-reads)))
+;; 			 (rest remaining-reads)
+;; 			 (gensym "NODES::"))))]
+;; 	(push-item g :auxiliary (pop-item :auxiliary state)))
+;;       state)))
+
+;; (define-registered connect-to-accept
+;;   (fn [state]
+;;     (if-let [g (and (n-on-stack? 1 :auxiliary state)
+;; 		    (not= :no-stack-item (top-item :auxiliary state))
+;; 		    (is-graph? (loop [loc (top-item :auxiliary state)
+;; 				      remaining-reads alphabet
+;; 				      to (gensym "NODE::")]
+;; 				 (if (empty? remaining-reads)
+;; 				   loc
+;; 				   (recur (add-edge loc
+;; 						    (node loc)
+;; 						    'accept
+;; 						    (edge-test (first remaining-reads))
+;; 						    (edge-transition-rule (node loc) 'accept (first remaining-reads)))
+;; 					  (rest remaining-reads)
+;; 					  (gensym "NODE::"))))))]
+;;       (push-item g :auxiliary (pop-item :auxiliary state))
+;;       state)))
