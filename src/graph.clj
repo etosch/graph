@@ -3,23 +3,8 @@
   ^{:doc "Functionally encoding graphs. Styled after zippers and cellular encoding."
     :author "Emma Tosch"}
   (:gen-class)
-  (:require [clojure.set :as set]))
+  (:require [clojure.set :as set] [aux]))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; aux functions
-(defn not-nil-or-empty? [thing]
-  (not (or (nil? thing)
-	   (and (coll? thing) (empty? thing)))))
-
-(defn find-first
-  [pred coll]
-  (first (filter pred coll)))
-
-(defn rcons
-  "Reverse cons."
-  [item coll]
-  ^{:author "Kyle Harrington"}
-  (reverse (cons item (reverse coll))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; graph functions
 
@@ -47,10 +32,18 @@ aux-struct is an auxilary data structure that may be updated as the graph proces
 	     :aux-struct (if (fn? aux-struct) (aux-struct) aux-struct)}]
     {:transition-rule (fn [loc]
 			(assert (meta loc))
-			(fn [input]
-			  (keep #(if ((:test %) loc input)
-				   ((:transition-update %) loc input))
-				(filter #(= (loc 0) (:from %)) (:edges (meta loc))))))
+			 (fn [input]
+			   (let [transitions (transient [])]
+			     (doseq [edge (:edges (meta loc))]
+			       (if (and (= (loc 0) (:from edge))
+			   		((:test edge) loc input))
+			   	(conj! transitions
+			   	       ((:transition-update edge) loc input))))
+			     (seq (persistent! transitions)))))
+				  
+			  ;; (keep #(if ((:test %) loc input)
+			  ;; 	   ((:transition-update %) loc input))
+			  ;; 	(filter #(= (loc 0) (:from %)) (:edges (meta loc)))))) ;; also tried with mapcar, filtering out nils from a for loop
      :nodes nodes :edges edges
      :accept-rule accept-rule :reject-rule reject-rule}))
 
@@ -87,30 +80,53 @@ aux-struct is an auxilary data structure that may be updated as the graph proces
 (defn next-generator
   [loc]
   (if (seq? loc)
-    (mapcat next-generator loc)
+    (loop [this-gen loc next-gen '()]
+      (if (empty? this-gen) next-gen
+	  (recur (rest this-gen) (concat (transition-fn (first this-gen) false) next-gen))))
     (transition-fn loc false)))
 
-(defn next-processor
+(defn next-processor ;;not faster with transients -> probably because can't just con!, need to (reduce conj! ...)
   ([loc input]
      (if (seq? loc)
-       (mapcat next-processor loc (repeat input))
+       (loop [this-gen loc next-gen '()]
+	 (if (empty? this-gen) next-gen
+	     (recur (rest this-gen) (concat next-gen (transition-fn (first this-gen) input)))))
        (transition-fn loc input)))
   ([loc]
      (if (seq? loc)
-       (mapcat next-processor loc)
+       (loop [this-gen loc next-gen '()]
+	 (if (empty? this-gen) next-gen
+	     (recur (rest this-gen) (concat next-gen (transition-fn (first this-gen) (first (input-remaining (first this-gen))))))))
        (next-processor loc (first (input-remaining loc))))))
+
+;; (defn prev
+;;   [loc]
+;;   (if (seq? loc)
+;;     (mapcat prev loc)
+;;     (if-let [prev-legal-node (aux/find-first #(contains? (nodes loc) %)
+;; 					 (path loc))]
+;;       (with-meta [prev-legal-node
+;; 		  (assoc (loc 1)
+;; 		    :path (cons prev-legal-node (path loc)))]
+;; 	(meta loc))
+;;       loc)))
 
 (defn prev
   [loc]
-  (if (seq? loc)
-    (mapcat prev loc)
-    (if-let [prev-legal-node (find-first #(contains? (nodes loc) %)
-					 (path loc))]
-      (with-meta [prev-legal-node
-		  (assoc (loc 1)
-		    :path (cons prev-legal-node (path loc)))]
-	(meta loc))
-      loc)))
+  (loop [processed '() unprocessed (aux/ensure-list loc)]
+    (let [loc (first unprocessed)]
+      (if (nil? loc)
+	(if (= (count processed) 1) (first processed) processed)
+	(recur (concat (aux/ensure-list
+			(if-let [prev-legal-node (aux/find-first #(contains? (nodes loc) %) (path loc))]
+			  (with-meta [prev-legal-node (assoc (loc 1)
+							:path (cons prev-legal-node (path loc)))]
+			    (meta loc))
+			  loc))
+		       processed)
+	       (rest unprocessed))))))
+    
+
 
 (defn move-graph
   "Picks up and moves a graph without reading input.
@@ -163,4 +179,3 @@ If there are multiple edges between nodes, this function will remove all of them
       (assoc (meta loc)
 	:edges (clojure.core/remove #(and (= (:from %) from) (= (:to %) to)) (edges loc))))
    loc))
-

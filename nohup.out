@@ -1,0 +1,231 @@
+[?1049h[?12;25h[?1h=[47;1H[?25l[7m----:---F1  [0m[39;49m[27m[7m[1m*scratch*   [0m[39;49m[27m[7m   All L1     (Fundamental)----------------------------------------------------------------------------------------------------------[0m[39;49m[27m
+[A[H[?12l[?25h[?12;25h[H[2J[48d[?25lLoading encoded-kb...[K[H[?12l[?25h[?12;25h[48;22H[?25ldone[H[?12l[?25h[?12;25h[48d[K[?1l>[?12l[?25h[?1049l[39;49m[?1049h[?12;25h[?1h=[48;1H[K[?1l>[?12l[?25h[?1049l[39;49m[?1049h[?12;25h[?1h=[48;1H[?25lLoading /home/g/grad/etosch/.emacs.d/elpa/package.el (source)...[K[H
+[?12l[?25h[?12;25h[48;65H[?25ldone[H
+[?12l[?25h[?12;25h[48;9H[?25ladvice...[K[H
+[?12l[?25h[?12;25h[48;18H[?25ldone[H
+[?12l[?25h[?12;25h[48;9H[?25lcl-seq...[K[H
+[?12l[?25h[?12;25h[48;18H[?25ldone[H
+[?12l[?25h[?12;25h[48;9H[?25leasy-mmode...[H
+[?12l[?25h[?12;25h[48;22H[?25ldone[H
+[?12l[?25h[?12;25h[48;9H[?25lcl-macs...[K[H
+[?12l[?25h[?12;25h[48;19H[?25ldone[H
+[?12l[?25h[?12;25h[48;9H[?25l/home/g/grad/etosch/.emacs.d/elpa/slime-repl-20100404/slime-repl.el (source)...[H
+[?12l[?25h[?12;25h[48;9H[?25ledmacro...[K[H
+[?12l[?25h[?12;25h[48;19H[?25ldone[H
+[?12l[?25h[?12;25h[48;9H[?25lbyte-opt...[K[H
+[?12l[?25h[?12;25h[48;20H[?25ldone[H
+[?12l[?25h[?12;25h[48;9H[?25l/home/g/grad/etosch/.emacs.d/elpa/slime-repl-20100404/slime-repl.el (source)...done[H
+[?12l[?25h[?12;25h[48d[?25lFor information about the GNU Project and its goals, type C-h C-p.[K[H
+[?12l[?25h[?12;25h[48d[?25lFor information about the GNU Project and its goals, type C-h C-p.[K[HWelcome to GNU Emacs, a part of the GNU operating system.[K
+[K
+Type C-l to begin editing.[K
+[K
+Get help           C-h  (Hold down CTRL and press h)[K
+Emacs manual       C-h r[K
+Emacs tutorial     C-h t           Undo changes     C-x u[K
+Buy manuals        C-h C-m         Exit Emacs       C-x C-c[K
+Browse manuals     C-h i[K
+Activate menubar   F10  or  ESC `  or   M-`[K
+(`C-' means use the CTRL key.  `M-' means use the Meta (or Alt) key.[K
+If you have no Meta key, you may instead type ESC followed by the character.)[K
+[K
+GNU Emacs 22.1.1 (mac-apple-darwin, Carbon Version 1.6.0)[K
+ of 2010-01-04 on magic.cs.brandeis.edu[K
+Copyright (C) 2007 Free Software Foundation, Inc.[K
+[K
+GNU Emacs comes with ABSOLUTELY NO WARRANTY; type C-h C-w for full details.[K
+Emacs is Free Software--Free as in Freedom--so you can redistribute copies[K
+of Emacs and modify it; type C-h C-c to see the conditions.[K
+Type C-h C-d for information on getting the latest version.[K
+[K
+If an Emacs session crashed recently, type Meta-x recover-session RET[K
+to recover the files you were editing.[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[7m[1m---- GNU Emacs ----------------------------------------------------------------------------------------------------------------------------------------------[0m[39;49m[27m
+[A[H[?12l[?25h[?12;25h[48d[K[?1l>[?12l[?25h[?1049l[39;49m[?1049h[?12;25h[?1h=[48;1H[K[H[?25l[31m;; [39;49mThis buffer is for notes you don't want to save, and for Lisp evaluation.                                                                                 
+[A
+[31m;; [39;49mIf you want to create a file, visit that file with C-x C-f,                                                                                               
+[A
+[31m;; [39;49mthen enter the text in that file's own buffer.                                                                                                            
+[A
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[7m--11:---F1  [0m[39;49m[27m[7m[1m*scratch*   [0m[39;49m[27m[7m   All L5     (Lisp Interaction)-----------------------------------------------------------------------------------------------------[0m[39;49m[27m
+[A[5d[?12l[?25h[?12;25h[48d[K[?1l>[?12l[?25h[?1049l[39;49m[?1049h[?12;25h[?1h=[47;1H[?25l[7m----:---F1  [0m[39;49m[27m[7m[1m*scratch*   [0m[39;49m[27m[7m   All L1     (Fundamental)----------------------------------------------------------------------------------------------------------[0m[39;49m[27m
+[A[H[?12l[?25h[?12;25h[H[2J[48d[?25lLoading encoded-kb...[K[H[?12l[?25h[?12;25h[48;22H[?25ldone[H[?12l[?25h[?12;25h[48d[K[?1l>[?12l[?25h[?1049l[39;49m[?1049h[?12;25h[?1h=[48;1H[K[?1l>[?12l[?25h[?1049l[39;49m[?1049h[?12;25h[?1h=[48;1H[?25lLoading /home/g/grad/etosch/.emacs.d/elpa/package.el (source)...[K[H
+[?12l[?25h[?12;25h[48;65H[?25ldone[H
+[?12l[?25h[?12;25h[48;9H[?25ladvice...[K[H
+[?12l[?25h[?12;25h[48;18H[?25ldone[H
+[?12l[?25h[?12;25h[48;9H[?25lcl-seq...[K[H
+[?12l[?25h[?12;25h[48;18H[?25ldone[H
+[?12l[?25h[?12;25h[48;9H[?25leasy-mmode...[H
+[?12l[?25h[?12;25h[48;22H[?25ldone[H
+[?12l[?25h[?12;25h[48;9H[?25lcl-macs...[K[H
+[?12l[?25h[?12;25h[48;19H[?25ldone[H
+[?12l[?25h[?12;25h[48;9H[?25l/home/g/grad/etosch/.emacs.d/elpa/slime-repl-20100404/slime-repl.el (source)...[H
+[?12l[?25h[?12;25h[48;9H[?25ledmacro...[K[H
+[?12l[?25h[?12;25h[48;19H[?25ldone[H
+[?12l[?25h[?12;25h[48;9H[?25lbyte-opt...[K[H
+[?12l[?25h[?12;25h[48;20H[?25ldone[H
+[?12l[?25h[?12;25h[48;9H[?25l/home/g/grad/etosch/.emacs.d/elpa/slime-repl-20100404/slime-repl.el (source)...done[H
+[?12l[?25h[?12;25h[48d[?25lFor information about the GNU Project and its goals, type C-h C-p.[K[H
+[?12l[?25h[?12;25h[48d[?25lFor information about the GNU Project and its goals, type C-h C-p.[K[HWelcome to GNU Emacs, a part of the GNU operating system.[K
+[K
+Type C-l to begin editing.[K
+[K
+Get help           C-h  (Hold down CTRL and press h)[K
+Emacs manual       C-h r[K
+Emacs tutorial     C-h t           Undo changes     C-x u[K
+Buy manuals        C-h C-m         Exit Emacs       C-x C-c[K
+Browse manuals     C-h i[K
+Activate menubar   F10  or  ESC `  or   M-`[K
+(`C-' means use the CTRL key.  `M-' means use the Meta (or Alt) key.[K
+If you have no Meta key, you may instead type ESC followed by the character.)[K
+[K
+GNU Emacs 22.1.1 (mac-apple-darwin, Carbon Version 1.6.0)[K
+ of 2010-01-04 on magic.cs.brandeis.edu[K
+Copyright (C) 2007 Free Software Foundation, Inc.[K
+[K
+GNU Emacs comes with ABSOLUTELY NO WARRANTY; type C-h C-w for full details.[K
+Emacs is Free Software--Free as in Freedom--so you can redistribute copies[K
+of Emacs and modify it; type C-h C-c to see the conditions.[K
+Type C-h C-d for information on getting the latest version.[K
+[K
+If an Emacs session crashed recently, type Meta-x recover-session RET[K
+to recover the files you were editing.[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[7m[1m---- GNU Emacs ----------------------------------------------------------------------------------------------------------------------------------------------[0m[39;49m[27m
+[A[H[?12l[?25h[?12;25h[48d[K[?1l>[?12l[?25h[?1049l[39;49m[?1049h[?12;25h[?1h=[48;1H[K[H[?25l[31m;; [39;49mThis buffer is for notes you don't want to save, and for Lisp evaluation.                                                                                 
+[A
+[31m;; [39;49mIf you want to create a file, visit that file with C-x C-f,                                                                                               
+[A
+[31m;; [39;49mthen enter the text in that file's own buffer.                                                                                                            
+[A
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[7m--11:---F1  [0m[39;49m[27m[7m[1m*scratch*   [0m[39;49m[27m[7m   All L5     (Lisp Interaction)-----------------------------------------------------------------------------------------------------[0m[39;49m[27m
+[A[5d[?12l[?25h[?12;25h[48d[K[?1l>[?12l[?25h[?1049l[39;49m

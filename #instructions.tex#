@@ -1,0 +1,4 @@
+\documentclass{article}[11pt]
+\usepackage{fullpage}
+\section{Graph Representation}
+The graph representation is modelled after 

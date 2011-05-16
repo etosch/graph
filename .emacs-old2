@@ -1,0 +1,57 @@
+;; .emacs
+
+;;; This was installed by package-install.el.
+;;; This provides support for the package system and
+;;; interfacing with ELPA, the package archive.
+;;; Move this code earlier if you want to reference
+;;; packages in your .emacs.
+
+;; (when
+;;     (load
+;;      (expand-file-name "~/.emacs.d/elpa/package.el"))
+;;   (package-initialize))
+
+;;; uncomment this line to disable loading of "default.el" at startup
+;;(setq inhibit-default-init t)
+;;(setq default-truncate-lines t)
+(setq inhibit-splash-screen t)
+(set-keyboard-coding-system nil)
+
+;; turn on font-lock mode
+;; (when (fboundp 'global-font-lock-mode)
+;;   (global-font-lock-mode t))
+
+;; ;; enable visual feedback on selections
+;; ;(setq transient-mark-mode t)
+
+;; ;; default to better frame titles
+;; (setq frame-title-format
+;;       (concat  "%b - emacs@" (system-name)))
+
+;; ;; default to unified diffs
+;; (setq diff-switches "-u")
+
+;; ; your Lisp system 
+;; ;; (setq inferior-lisp-program "/usr/local/bin/sbcl")
+;; ;; (add-to-list 'load-path "/usr/local/slime")
+;; (provide 'slime-autoloads)
+;; (require 'slime) ;;uncomment this for the mac
+;; (slime-setup)
+
+;; (defvar *lisp-modes* '(clojure-mode-hook lisp-mode-hook emacs-lisp-mode-hook
+;;                        lisp-interaction-mode-hook slime-repl-mode-hook))
+
+;; ;; config used in all lisp modes
+;; (defun lisp-config ()
+;; ;;   (paredit-mode t)
+;;    (show-paren-mode t))
+ 
+;; (mapc (lambda (mode)
+;;         (add-hook mode 'lisp-config)) *lisp-modes*)
+ 
+;; ;; other lisp implementations
+;; (eval-after-load "slime"
+;;   '(progn (setq slime-lisp-implementations
+;;                 '((sbcl ("/usr/local/bin/sbcl"))))))
+;; ;;	  (slime-setup '(slime-repl))))~
+;; ;;                  (clisp ("/usr/bin/clisp"))))))

@@ -1,0 +1,6 @@
+\documentclass{article}[12pt]
+\begin{document}
+\nocite{*}
+\bibliographystyle{plain-annote}
+\bibliography{resources}
+\end{document}
