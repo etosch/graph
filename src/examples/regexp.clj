@@ -1,11 +1,10 @@
 ;; regexp.clj
 (ns examples.regexp
+  (:gen-class)
   (:use ;;[runner]
 	[clojush :exclude [ensure-list rcons]]
 	[graph :exclude 'add-edge]
 	[graph-utils.fa :exclude '*verbose*]))
-
-;;(def *verbose* (atom false))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; modification clojush to print the best graph
@@ -19,19 +18,15 @@
     (list loc
 	  {:nodes (nodes loc)
 	   :edges (map #(select-keys % '(:from :to :read)) (edges loc))
-	   :accept-nodes (map node
-			      (filter #((accept-fn loc) %)
-				      (map #(move-graph loc %) (nodes loc))))
-	   })))
+	   :accept-nodes (map node (filter #((accept-fn loc) %) (map #(move-graph loc %) (nodes loc))))})))
 
 (defn problem-specific-report
   [best population generation error-function report-simplifications]
   (println "\nBest graph:" (graph-display (:graph (aux/find-first
-						   #(and (= (:code %)
-							    (:program best))
-							 (= (ensure-list (:fitness %))
-							    (:errors best)))
+						   #(and (= (:code %)(:program best))
+							 (= (ensure-list (:error %))(:errors best)))
 						   @best-graph)))))
+
 (defn stack-safe? [type state & [n]]
   (and (n-on-stack? (or n 1) type state)
        (not-any? #(or (= :no-stack-item %)
@@ -54,10 +49,8 @@
 	       {'start {"a" ['a* 'a*a] "b" 'dead}}
 	       #{'accept}
 	       nil))
-
 (def alphabet '("a" "b"))
-
-(def first-10-regexps (doall (enumerate-strings aa*b 10)))
+(def first-15-regexps (doall (enumerate-strings aa*b 15)))
 
 (defn is-graph? [loc]
   (and (vector? loc)
@@ -82,49 +75,26 @@
   (contains? (set (map #(select-keys % '(:from :to :read)) (edges loc)))
 	     {:read read :from from :to to}))
 
-#_(-> (new-empty-graph)
-    (add-node 'A)
-    (add-node 'B)
-    (add-edge 'start 'A (edge-test "a") (edge-transition-rule 'start 'A "a") "a")
-    (add-edge 'start 'B (edge-test "a") (edge-transition-rule 'start 'B "a") "a")
-    (add-edge 'A 'A (edge-test "a") (edge-transition-rule 'A 'A "a") "a")
-    (add-edge 'A 'B (edge-test "a") (edge-transition-rule 'A 'B "a") "a")
-    (add-edge 'B 'accept (edge-test "b") (edge-transition-rule 'B 'accept "b") "b")
-    (with-input "aab")
-    (evaluate))
-
-(defn regexp-fitness
+(defn regexp-error
   [program]
-  (let [state (run-push program (push-item (new-empty-graph) :auxiliary (make-push-state)) @*verbose*)
+  (let [state (run-push program (push-item (new-empty-graph) :auxiliary (make-push-state)))
 	evolved-graph (top-item :auxiliary state)
-	regexps-1 (take 5 (shuffle first-10-regexps))
+	regexps-1 (take 5 (shuffle first-15-regexps))
 	regexps-2 (doall (enumerate-strings evolved-graph 10))
-	fit-0 (->> (edges evolved-graph)
-		    (map :read)
-		    (filter #(= % :epsilon))
-		    (count)
-		    (* 2))
-	fit-1 (->> (pmap #(eval-machine % evolved-graph) regexps-1)
-		   (filter #(= :accept %))
-		   (count)
-		   (- 5))
-	fit-2 (->> (pmap #(eval-machine % aa*b) regexps-2)
- 		   (filter #(= :accept %))
- 		   (count)
- 		   (- 10))
+	fit-0 (count (filter #(= (:read %) :epsilon) (edges evolved-graph)))
+	fit-1 (count (filter #(= :reject %) (pmap #(eval-machine % evolved-graph) regexps-1)))
+	fit-2 (- 10 (count (filter #(= :accept %) (pmap #(eval-machine % aa*b) regexps-2))))
  	fitness (+ fit-0 fit-1 fit-2)]
+;;    (println fit-0 fit-1 fit-2)
     (cond (or (not (seq @best-graph))
- 	      (> (:fitness (first @best-graph)) fitness))
+ 	      (> (:error (first @best-graph)) fitness))
      	  (reset! best-graph
- 		  (list {:fitness fitness :code program
+ 		  (list {:error fitness :code program
  			 :graph (top-item :auxiliary state)}))
- 	  (= (:fitness (first @best-graph)) fitness)
- 	  (swap! best-graph conj {:fitness fitness :code program
+ 	  (= (:error (first @best-graph)) fitness)
+ 	  (swap! best-graph conj {:error fitness :code program
 				  :graph (top-item :auxiliary state)}))
      (list fitness)))
-
-#_(-> (random-code 10 regexp-instructions)
-      (regexp-fitness))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Push graph instructions
@@ -257,7 +227,7 @@
   (fn [state]
     (aux/if-let* [top-aux (aux/return-if-all (safe-top-item :auxiliary state)
 					     is-graph? #(first (path %)))
-		  g (is-graph? (remove-edge top-aux (node top-aux) (first (path top-aux))))]
+		  g (is-graph? (remove-edge top-aux (second (path top-aux)) (first (path top-aux))))]
 		 (push-item g :auxiliary (pop-item :auxiliary state))
 		 state)))
 
@@ -305,14 +275,19 @@
 			       '(start accept nth-next prev nth-node add-unconnected-node add-connected-node
 				       remove-node add-edge add-nth-edge remove-edge ;;add-connected-nodes
 				       connect-to-accept)))
+#_(do (reset! best-graph '())
+      (pushgp :error-function regexp-error
+	      :atom-generators regexp-instructions
+	      :max-generations 1000
+	      :max-points 50
+	      :population-size 1000))
 
 (defn -main [max-gens max-points pop-size]
-  (do (reset! best-graph '())
-      (pushgp :error-function regexp-fitness
-	      :atom-generators regexp-instructions
-	      :max-generations max-gens
-	      :max-points max-points
-	      :population-size pop-size)))
+  (pushgp :error-function regexp-error
+	  :atom-generators regexp-instructions
+	  :max-generations (read-string max-gens)
+	  :max-points (read-string max-points)
+	  :population-size (read-string pop-size)))
 
 ;; (in-ns 'runner)
 ;; (use 'clojush)
@@ -325,7 +300,7 @@
 ;; 	pop-size (params :population-size)]
 ;;     (try 
 ;;       (do (reset! best-graph '())
-;; 	  (pushgp :error-function regexp-fitness
+;; 	  (pushgp :error-function regexp-error
 ;; 		  :atom-generators regexp-instructions
 ;; 		  :max-generations max-gen
 ;; 		  :max-points max-points

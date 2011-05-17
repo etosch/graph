@@ -1,0 +1,146 @@
+
+Starting PushGP run.
+
+error-function = #<regexp$regexp_fitness examples.regexp$regexp_fitness@986975>
+error-threshold = 0
+population-size = 1000
+max-points = 50
+atom-generators = (#<regexp$fn__925 examples.regexp$fn__925@aa2ee4> start accept nth-next prev nth-node add-unconnected-node add-connected-node remove-node add-edge add-nth-edge remove-edge connect-to-accept)
+max-generations = 1000
+mutation-probability = 0.45
+mutation-max-points = 20
+crossover-probability = 0.45
+simplification-probability = 0.0
+tournament-size = 7
+report-simplifications = 100
+final-report-simplifications = 1000
+trivial-geography-radius = 0
+decimation-ratio = 1
+decimation-tournament-size = 2
+evalpush-limit = 150
+evalpush-time-limit = 0
+node-selection-method = :unbiased
+node-selection-tournament-size = 2
+node-selection-leaf-probability = 0.1
+tagging-mode = :pop
+
+Generating initial population...
+
+
+-----
+Processing generation: 0
+Computing errors...
+Done computing errors.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -*- Report at generation 0
+Current time: 1305582318333
+Best program: (accept (nth-next) nth-next nth-next ((add-nth-edge nth-node) remove-edge prev (nth-next) (add-unconnected-node ((connect-to-accept add-connected-node remove-node add-connected-node) nth-node)) ((remove-node 4 start) prev (add-edge) add-unconnected-node (nth-node (remove-node add-edge) (add-edge nth-next ((nth-next 32 add-connected-node) add-connected-node)) (start remove-edge) connect-to-accept))))
+Partial simplification (may beat best): (accept (add-unconnected-node 4 start prev add-edge add-unconnected-node nth-node add-edge nth-next 32 connect-to-accept))
+Errors: (2)
+Total: 2
+History: (2)
+Size: 50
+--- Population Statistics ---
+Average total errors in population: 17.201
+Median total errors in population: 17
+Average program size in population (points): 25.251
+Number of unique programs in population:  977
+Max copy number of one program:  4
+Min copy number of one program:  1
+Median copy number:  1
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+Best graph: nil
+
+Producing offspring...
+Installing next generation...
+
+-----
+Processing generation: 1
+Computing errors...
+Done computing errors.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -*- Report at generation 1
+Current time: 1305582610685
+Best program: (accept prev (((remove-node 4 start) prev (add-edge) add-unconnected-node (nth-node (remove-node add-edge) (add-edge nth-next ((nth-next 32 add-connected-node) add-connected-node)) (start remove-edge) connect-to-accept)) add-connected-node) (accept accept))
+Partial simplification (may beat best): (accept ((4 start prev add-edge nth-node add-edge 32 connect-to-accept)) (accept))
+Errors: (1)
+Total: 1
+History: (1 17)
+Size: 35
+--- Population Statistics ---
+Average total errors in population: 14.577
+Median total errors in population: 17
+Average program size in population (points): 31.349
+Number of unique programs in population:  899
+Max copy number of one program:  6
+Min copy number of one program:  1
+Median copy number:  1
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+Best graph: nil
+
+Producing offspring...
+Installing next generation...
+
+-----
+Processing generation: 2
+Computing errors...
+Done computing errors.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -*- Report at generation 2
+Current time: 1305583531738
+Best program: (accept (nth-next) nth-next nth-next ((add-nth-edge nth-node) remove-edge prev (nth-next) (add-unconnected-node ((connect-to-accept add-connected-node remove-node add-connected-node) add-unconnected-node)) ((remove-node 4 start) prev (add-edge) add-unconnected-node (nth-node (remove-node add-edge) (add-edge nth-next ((nth-next 32 add-connected-node) add-connected-node)) (start remove-edge) connect-to-accept))))
+Partial simplification (may beat best): (((add-unconnected-node add-unconnected-node) ((4 start) prev add-unconnected-node (nth-node add-edge nth-next 32 add-connected-node add-connected-node start connect-to-accept))))
+Errors: (0)
+Total: 0
+History: (0 2 2)
+Size: 50
+--- Population Statistics ---
+Average total errors in population: 10.616
+Median total errors in population: 10
+Average program size in population (points): 38.89
+Number of unique programs in population:  830
+Max copy number of one program:  14
+Min copy number of one program:  1
+Median copy number:  1
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+Best graph: ([start {:path (start NODE::7756 NODE::7755 start start start start accept start start accept accept), :input [nil (a a)], :aux-struct nil}] {:nodes #{NODE::7754 NODE::7753 NODE::7756 NODE::7755 accept start NODE::7752}, :edges ({:read b, :to accept, :from start} {:read b, :to NODE::7756, :from NODE::7755} {:read b, :to NODE::7755, :from start} {:read a, :to accept, :from start} {:read :epsilon, :to accept, :from start}), :accept-nodes (accept)})
+
+
+SUCCESS at generation 2
+Successful program: (accept (nth-next) nth-next nth-next ((add-nth-edge nth-node) remove-edge prev (nth-next) (add-unconnected-node ((connect-to-accept add-connected-node remove-node add-connected-node) add-unconnected-node)) ((remove-node 4 start) prev (add-edge) add-unconnected-node (nth-node (remove-node add-edge) (add-edge nth-next ((nth-next 32 add-connected-node) add-connected-node)) (start remove-edge) connect-to-accept))))
+Errors: (0)
+Total error: 0
+History: (0 2 2)
+Size: 50
+
+
+Auto-simplifying with starting size: 50
+step: 0
+program: (accept (nth-next) nth-next nth-next ((add-nth-edge nth-node) remove-edge prev (nth-next) (add-unconnected-node ((connect-to-accept add-connected-node remove-node add-connected-node) add-unconnected-node)) ((remove-node 4 start) prev (add-edge) add-unconnected-node (nth-node (remove-node add-edge) (add-edge nth-next ((nth-next 32 add-connected-node) add-connected-node)) (start remove-edge) connect-to-accept))))
+errors: (0)
+total: 0
+size: 50
+
+step: 500
+program: (accept add-unconnected-node add-unconnected-node 4 start prev add-edge nth-node add-edge nth-next 32 connect-to-accept)
+errors: (0)
+total: 0
+size: 13
+
+step: 1000
+program: (accept add-unconnected-node add-unconnected-node 4 start prev add-edge nth-node add-edge nth-next 32 connect-to-accept)
+errors: (0)
+total: 0
+size: 13

@@ -1,4 +1,4 @@
-(defproject graph "1.0.0-SNAPSHOT"
+(defproject graph "1.0.1-SNAPSHOT"
   :description "Functional, local graph representation."
   :dev-dependencies [[swank-clojure "1.2.1"]]
   :dependencies [[clojush "20110118-kephale.21"]
