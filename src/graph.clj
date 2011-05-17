@@ -85,7 +85,7 @@ aux-struct is an auxilary data structure that may be updated as the graph proces
 	  (recur (rest this-gen) (concat (transition-fn (first this-gen) false) next-gen))))
     (transition-fn loc false)))
 
-(defn next-processor ;;not faster with transients -> probably because can't just con!, need to (reduce conj! ...)
+(defn next-processor
   ([loc input]
      (if (seq? loc)
        (loop [this-gen loc next-gen '()]
@@ -97,35 +97,19 @@ aux-struct is an auxilary data structure that may be updated as the graph proces
        (loop [this-gen loc next-gen '()]
 	 (if (empty? this-gen) next-gen
 	     (recur (rest this-gen) (concat next-gen (transition-fn (first this-gen) (first (input-remaining (first this-gen))))))))
-       (next-processor loc (first (input-remaining loc))))))
-
-;; (defn prev
-;;   [loc]
-;;   (if (seq? loc)
-;;     (mapcat prev loc)
-;;     (if-let [prev-legal-node (aux/find-first #(contains? (nodes loc) %)
-;; 					 (path loc))]
-;;       (with-meta [prev-legal-node
-;; 		  (assoc (loc 1)
-;; 		    :path (cons prev-legal-node (path loc)))]
-;; 	(meta loc))
-;;       loc)))
+       (transition-fn loc (first (input-remaining loc))))))
 
 (defn prev
   [loc]
-  (loop [processed '() unprocessed (aux/ensure-list loc)]
-    (let [loc (first unprocessed)]
-      (if (nil? loc)
-	(if (= (count processed) 1) (first processed) processed)
-	(recur (concat (aux/ensure-list
-			(if-let [prev-legal-node (aux/find-first #(contains? (nodes loc) %) (path loc))]
-			  (with-meta [prev-legal-node (assoc (loc 1)
-							:path (cons prev-legal-node (path loc)))]
-			    (meta loc))
-			  loc))
-		       processed)
-	       (rest unprocessed))))))
-    
+  (letfn [(move-prev
+	   [lloc] (if-let [prev-legal-node (aux/find-first #(contains? (nodes lloc) %) (path lloc))]
+		    (with-meta [prev-legal-node (assoc (lloc 1)
+						  :path (cons prev-legal-node (path lloc)))]
+		      (meta lloc))
+		    lloc))]
+    (if (seq? loc)
+      (map move-prev loc)
+      (move-prev loc))))
 
 
 (defn move-graph
@@ -157,7 +141,7 @@ If the supplied to node is not in the graph, returns loc."
 	:edges (clojure.core/remove #(or (= (:from %) n) (= (:to %) n)) (edges loc))))
     loc))
 	   
-(defn add-edge
+(defn add-directed-edge
   "Adds a new edge between two existing nodes.
 Allows multiple edges between nodes, allowing for multiple transition functions."
   [loc from to test transition-update]
@@ -169,10 +153,13 @@ Allows multiple edges between nodes, allowing for multiple transition functions.
 		      :test test :transition-update transition-update})))
     loc))
 
+(defn add-undirected-edge
+  [loc from to test transition-update]
+  (add-directed-edge loc from to test transition-update)
+  (add-directed-edge loc to from test transition-update))
+
 (defn remove-edge
-  "Removes an edge from the graph.
-If the edge indicated does not exist, just returns the graph.
-If there are multiple edges between nodes, this function will remove all of them."
+  "Removes an edge from the graph. If the edge indicated does not exist, just returns the graph. If there are multiple edges between nodes, this function will remove all of them. This takes care of the case of undirected graphs."
   [loc from to]
   (if (and from to (not (coll? from)) (not (coll? to)))
     (with-meta loc

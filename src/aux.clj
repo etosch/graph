@@ -35,3 +35,14 @@
     coll
     (list coll)))
 
+(defn nth-app
+  [f n arg]
+  (if (> n 0)
+    (try (->> (f arg)
+	      (recur f (dec n)))
+	 (catch Exception e nil))
+    arg))
+
+(defn third
+  [coll]
+  (nth coll 2))

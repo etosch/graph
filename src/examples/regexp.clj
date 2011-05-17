@@ -278,9 +278,9 @@
 #_(do (reset! best-graph '())
       (pushgp :error-function regexp-error
 	      :atom-generators regexp-instructions
-	      :max-generations 1000
+	      :max-generations 10
 	      :max-points 50
-	      :population-size 1000))
+	      :population-size 10))
 
 (defn -main [max-gens max-points pop-size]
   (pushgp :error-function regexp-error
