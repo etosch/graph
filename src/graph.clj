@@ -33,19 +33,18 @@ aux-struct is an auxilary data structure that may be updated as the graph proces
     {:transition-rule (fn [loc]
 			(assert (meta loc))
 			 (fn [input]
-			   (let [transitions (transient [])]
-			     (doseq [edge (:edges (meta loc))]
-			       (if (and (= (loc 0) (:from edge))
-			   		((:test edge) loc input))
-			   	(conj! transitions
-			   	       ((:transition-update edge) loc input))))
-			     (seq (persistent! transitions)))))
-				  
-			  ;; (keep #(if ((:test %) loc input)
-			  ;; 	   ((:transition-update %) loc input))
-			  ;; 	(filter #(= (loc 0) (:from %)) (:edges (meta loc)))))) ;; also tried with mapcar, filtering out nils from a for loop
+			  (keep #(if ((:test %) loc input)
+			  	   ((:transition-update %) loc input))
+			  	(filter #(= (loc 0) (:from %)) (:edges (meta loc)))))) ;; also tried with mapcar, filtering out nils from a for loop
      :nodes nodes :edges edges
      :accept-rule accept-rule :reject-rule reject-rule}))
+;; (let [transitions (transient [])]
+;;   (doseq [edge (:edges (meta loc))]
+;;     (if (and (= (loc 0) (:from edge))
+;; 		((:test edge) loc input))
+;; 	(conj! transitions
+;; 	       ((:transition-update edge) loc input))))
+;;   (seq (persistent! transitions)))))
 
 (defn make-graph
   "Returns a new graph of the same type as input graph loc, with new instance data."
@@ -89,15 +88,23 @@ aux-struct is an auxilary data structure that may be updated as the graph proces
   ([loc input]
      (if (seq? loc)
        (loop [this-gen loc next-gen '()]
-	 (if (empty? this-gen) next-gen
-	     (recur (rest this-gen) (concat next-gen (transition-fn (first this-gen) input)))))
+       	 (if (empty? this-gen) next-gen
+       	     (recur (rest this-gen)
+       		    (concat next-gen
+       			    (transition-fn (first this-gen) input)))))
        (transition-fn loc input)))
   ([loc]
      (if (seq? loc)
        (loop [this-gen loc next-gen '()]
 	 (if (empty? this-gen) next-gen
-	     (recur (rest this-gen) (concat next-gen (transition-fn (first this-gen) (first (input-remaining (first this-gen))))))))
-       (transition-fn loc (first (input-remaining loc))))))
+	     (let [this-node (first this-gen)]
+	       (recur (rest this-gen)
+		      (concat next-gen
+			      (transition-fn this-node
+					     (and (input-remaining this-node)
+						  (first (input-remaining this-node))))))))))
+     (transition-fn loc (and (input-remaining loc)
+			     (first (input-remaining loc))))))
 
 (defn prev
   [loc]

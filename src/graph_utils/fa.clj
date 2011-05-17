@@ -56,6 +56,10 @@
   (fn [loc input] (assert (meta loc))
     (or (= read :epsilon) (not input) (= read input))))
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; fa "constructor"
+
 (defn fa-graph
   "Returns a graph representing a finite automaton.
 
@@ -75,14 +79,15 @@ input is a sequence or string to be processed. If the input is anything other th
 	     ([loc]
 		(contains? accept-node-set (node loc)))
 	     ([loc input]
-		(and ((complement aux/not-nil-or-empty?) input)
-		     (contains? accept-node-set (node loc)))))
+		(when-not (aux/not-nil-or-empty? input)
+		  (contains? accept-node-set (node loc)))))
 	    (*reject-rule*
  	     ([loc]
  		(seq (next-processor loc input)))
 	     ([loc input]
-		(and (not (*accept-rule* loc input))
-		     ((complement aux/not-nil-or-empty?) (next-processor loc input)))))]
+		(when-not (or (*accept-rule* loc input)
+			       (aux/not-nil-or-empty? input))
+		  (seq (next-processor loc input)))))]
       (graph (set (flatten (for [[from trans] transition-map] [from (vals trans)])))
 	     (for [[from trans] transition-map
 		   [read states] trans
@@ -173,17 +178,54 @@ Verbose turns on a printer that prints to standard out one + for every 100 steps
   (let [max-visits (count (input-remaining loc))
 	break (atom nil :meta {:dfs 0 :bfs 0 :det 0})]
     (loop [this-gen (transient (vec (next-processor loc)))]
-      (let [me (get this-gen (dec (count this-gen)))
-	    siblings (when-not (zero? (count this-gen)) (pop! this-gen))]
-	(cond (or (not me) (> (visits me) max-visits)) (and (reset! break :reject) break)
- 	      ((reject-fn me) me (first (input-remaining me))) (do (alter-meta! break #(assoc % :det (inc (:det %))))
- 								    (recur siblings))
- 	      ((accept-fn me) me (first (input-remaining me))) (and (reset! break :accept) break)
- 	      :else (let [children (next-processor (tag-state me :visits #(inc (visits %))))] ;;tag current node as I leave this state
- 		      (when (and @*verbose* (= 0 (mod (apply + (vals (meta break))) 100)))
- 			(print "-"))
-		      (do (alter-meta! break #(assoc % :dfs (inc (:dfs %))))
- 			    (recur (reduce conj! siblings children)))))))))
+      ;; (println "me:" (get this-gen (dec (count this-gen)))
+      ;; 	       "\nvisits:" (get this-gen (dec (count this-gen)))
+      ;; 	       "siblings:" (dec (count this-gen)))
+      (aux/if-let* [me (get this-gen (dec (count this-gen)))
+		    v (< (visits me) max-visits)
+		    siblings (pop! this-gen)]
+		   (cond ((reject-fn me) me (first (input-remaining me)))
+			 (do (alter-meta! break #(assoc % :det (inc (:det %))))
+			     (recur siblings))
+			 ((accept-fn me) me (first (input-remaining me)))
+			 (do (reset! break :accept)
+			     break)
+			 :else (let [children (next-processor (tag-state me :visits #(inc (visits %))))] ;;tag current node as I leave this state
+				 (when (and @*verbose* (= 0 (mod (apply + (vals (meta break))) 100)))
+				   (print "-"))
+				 (do (alter-meta! break #(assoc % :dfs (inc (:dfs %))))
+				     (recur (reduce conj! siblings children)))))
+		   (do
+		     (reset! break :reject)
+		     break)))))
+
+
+;;  (defn evaluate [loc]
+;;   ;; if |this-gen| > |my-children|^|this-gen|, dfs else bfs
+;;   "Should be evaluated on a graph that holds its input in the input field. If the graph does not currently hold its input, it can be
+;; added using the with-input function.
+;; Returns an atom whose value is either the keyword :accept or :reject. Metadata is also returned indicating the frequencies of the search techniques.
+;; Verbose turns on a printer that prints to standard out one + for every 100 steps the search in the evaluation function takes."
+;;   (let [max-visits (count (input-remaining loc))
+;; 	break (atom nil :meta {:dfs 0 :bfs 0 :det 0})]
+;;     (loop [this-gen (next-processor loc)]
+;;       (let [me (first this-gen)
+;; 	    siblings (rest this-gen)]
+;; 	;;(println me "visits:" (visits me) "input remaining:" (input-remaining me))
+;; 	(cond (or (not me) (> (visits me) max-visits)) (and (reset! break :reject) break)
+;;  	      ((reject-fn me) me (first (input-remaining me))) (do (alter-meta! break #(assoc % :det (inc (:det %))))
+;;  								    (recur siblings))
+;;  	      ((accept-fn me) me (first (input-remaining me))) (and (reset! break :accept) break)
+;;  	      :else (let [children (next-processor (tag-state me))] ;;tag current node as I leave this state
+;;  		      (when (and @*verbose* (= 0 (mod (apply + (vals (meta break))) 100)))
+;;  			(print "-"))
+;;  		      (if (> (count siblings) (Math/pow (count children) (count siblings)))
+;;  			(do (alter-meta! break #(assoc % :dfs (inc (:dfs %))))
+;;  			    (recur (concat children siblings)))
+;; 			(do (alter-meta! break #(assoc % :bfs (inc (:bfs %))))
+;;  			    (recur (concat siblings children))))))))))
+
+
 
 (defn parse
   [regexp-string]
