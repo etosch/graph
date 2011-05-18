@@ -1,0 +1,30 @@
+Exception in thread "main" java.lang.RuntimeException: java.lang.RuntimeException: java.lang.NullPointerException
+	at clojure.lang.AFunction.compare(AFunction.java:39)
+	at java.util.Arrays.mergeSort(Arrays.java:1284)
+	at java.util.Arrays.mergeSort(Arrays.java:1296)
+	at java.util.Arrays.mergeSort(Arrays.java:1296)
+	at java.util.Arrays.mergeSort(Arrays.java:1295)
+	at java.util.Arrays.mergeSort(Arrays.java:1296)
+	at java.util.Arrays.mergeSort(Arrays.java:1296)
+	at java.util.Arrays.mergeSort(Arrays.java:1295)
+	at java.util.Arrays.sort(Arrays.java:1223)
+	at clojure.core$sort.invoke(core.clj:2339)
+	at clojure.core$sort_by.invoke(core.clj:2352)
+	at clojush$report.invoke(clojush.clj:1903)
+	at clojush$pushgp.doInvoke(clojush.clj:2116)
+	at clojure.lang.RestFn.invoke(RestFn.java:636)
+	at examples.regexp$_main.invoke(regexp.clj:308)
+	at clojure.lang.AFn.applyToHelper(AFn.java:174)
+	at clojure.lang.AFn.applyTo(AFn.java:151)
+	at examples.regexp.main(Unknown Source)
+Caused by: java.lang.RuntimeException: java.lang.NullPointerException
+	at clojure.lang.AFunction.compare(AFunction.java:39)
+	at clojure.core$sort_by$fn__3787.invoke(core.clj:2352)
+	at clojure.lang.AFunction.compare(AFunction.java:25)
+	... 17 more
+Caused by: java.lang.NullPointerException
+	at clojure.lang.Numbers.ops(Numbers.java:1364)
+	at clojure.lang.Numbers.lt(Numbers.java:190)
+	at clojure.core$_LT_.invoke(core.clj:758)
+	at clojure.lang.AFunction.compare(AFunction.java:25)
+	... 19 more

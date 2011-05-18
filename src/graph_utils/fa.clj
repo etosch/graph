@@ -8,7 +8,7 @@
   (:import [java.lang.Math]))
 
 (def *verbose* (atom false))
-
+(def max-steps (atom (Math/pow 2 16)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Auxilary functions for regexps
 
@@ -144,13 +144,13 @@ input is a sequence or string to be processed. If the input is anything other th
   (loop [nexts (transient [loc]) ret-val #{} steps 0]
     (if (or (zero? (count nexts))
 	    (> steps (Math/pow 2 (count (edges loc))))
-	    (> steps (Math/pow 2 32)))
+	    (> steps @max-steps))
       ret-val
       (let [this-level (next-generator (nth nexts 0))
 	    accepts (map #(or (seq (input-processed %)) '(:epsilon))
 			 (filter (accept-fn loc) this-level))]
 	(cond ;; if we've collected enough strings
-	 (> (+ (count ret-val) (count accepts)) n)
+	 (>= (+ (count ret-val) (count accepts)) n)
 	 (reduce conj ret-val (take (- n (count accepts)) accepts))
 	 ;; if new locs were generated at this level
 	 (seq this-level)
@@ -177,16 +177,17 @@ Returns an atom whose value is either the keyword :accept or :reject. Metadata i
 Verbose turns on a printer that prints to standard out one + for every 100 steps the search in the evaluation function takes."
   (let [max-visits (count (input-remaining loc))
 	break (atom nil :meta {:dfs 0 :bfs 0 :det 0})]
-    (loop [this-gen (transient (vec (next-processor loc)))]
+    (loop [this-gen (transient (vec (next-processor loc)))
+	   steps 0]
       ;; (println "me:" (get this-gen (dec (count this-gen)))
       ;; 	       "\nvisits:" (get this-gen (dec (count this-gen)))
       ;; 	       "siblings:" (dec (count this-gen)))
       (aux/if-let* [me (get this-gen (dec (count this-gen)))
-		    v (< (visits me) max-visits)
+		    v (and (< steps @max-steps) (< (visits me) max-visits))
 		    siblings (pop! this-gen)]
 		   (cond ((reject-fn me) me (first (input-remaining me)))
 			 (do (alter-meta! break #(assoc % :det (inc (:det %))))
-			     (recur siblings))
+			     (recur siblings (inc steps)))
 			 ((accept-fn me) me (first (input-remaining me)))
 			 (do (reset! break :accept)
 			     break)
@@ -194,7 +195,7 @@ Verbose turns on a printer that prints to standard out one + for every 100 steps
 				 (when (and @*verbose* (= 0 (mod (apply + (vals (meta break))) 100)))
 				   (print "-"))
 				 (do (alter-meta! break #(assoc % :dfs (inc (:dfs %))))
-				     (recur (reduce conj! siblings children)))))
+				     (recur (reduce conj! siblings children) (inc steps)))))
 		   (do
 		     (reset! break :reject)
 		     break)))))

@@ -1,0 +1,437 @@
+; SLIME 20100404
+user> (use 'examples.regexp)
+nil
+user> (in-ns 'examples.regexp)
+
+Starting PushGP run.
+
+error-function = #<regexp$regexp_error examples.regexp$regexp_error@e3aeda>
+error-threshold = 0
+population-size = 250
+max-points = 50
+atom-generators = (#<regexp$fn__974 examples.regexp$fn__974@924b12> start accept nth-next prev nth-node add-unconnected-node add-connected-node remove-node add-edge add-nth-edge remove-edge connect-to-accept)
+max-generations = 1000
+mutation-probability = 0.45
+mutation-max-points = 20
+crossover-probability = 0.45
+simplification-probability = 0.0
+tournament-size = 7
+report-simplifications = 0
+final-report-simplifications = 0
+trivial-geography-radius = 0
+decimation-ratio = 1
+decimation-tournament-size = 2
+evalpush-limit = 150
+evalpush-time-limit = 0
+node-selection-method = :unbiased
+node-selection-tournament-size = 2
+node-selection-leaf-probability = 0.1
+tagging-mode = :pop
+
+Generating initial population...
+
+
+-----
+Processing generation: 0
+Computing errors...
+Done computing errors.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -*- Report at generation 0
+Current time: 1305685471695
+Best program: ((nth-next) (nth-node) (remove-edge (remove-node) ((((11 add-edge prev) nth-next) remove-edge add-nth-edge) start) (prev remove-edge accept) (add-nth-edge) nth-node) prev connect-to-accept remove-node (add-connected-node add-unconnected-node add-edge remove-edge (37) (((add-unconnected-node) (start) (add-connected-node) add-edge) (start) add-nth-edge)))
+Errors: (8)
+Total: 8
+History: (8)
+Size: 49
+--- Population Statistics ---
+Average total errors in population: 12.8
+Median total errors in population: 12
+Average program size in population (points): 25.912
+Number of unique programs in population:  248
+Max copy number of one program:  2
+Min copy number of one program:  1
+Median copy number:  1
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+Best graph: ([start {:path (start start NODE::1851 start start NODE::1848 start start accept start start start), :input [() ()], :aux-struct nil}] {:nodes #{NODE::1848 NODE::1849 NODE::1850 NODE::1851 accept start}, :edges ({:read a, :to NODE::1849, :from start} {:read a, :to start, :from NODE::1851} {:read a, :to NODE::1851, :from start} {:read b, :to NODE::1848, :from start} {:read b, :to accept, :from start} {:read b, :to start, :from accept} {:read :epsilon, :to accept, :from start}), :accept-nodes (accept)})
+
+Producing offspring...
+Installing next generation...
+
+-----
+Processing generation: 1
+Computing errors...
+Done computing errors.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -*- Report at generation 1
+Current time: 1305685474064
+Best program: (add-connected-node add-edge (nth-next nth-next) (add-edge) (((remove-edge) add-edge start add-connected-node nth-next) remove-edge (29 start (add-edge connect-to-accept (nth-next))) ((connect-to-accept remove-edge 32) add-nth-edge (accept ((remove-node add-nth-edge accept (prev add-nth-edge)) remove-edge start 25) remove-node) (add-nth-edge)) start))
+Errors: (1)
+Total: 1
+History: (1 11)
+Size: 48
+--- Population Statistics ---
+Average total errors in population: 11.332
+Median total errors in population: 11
+Average program size in population (points): 17.832
+Number of unique programs in population:  225
+Max copy number of one program:  6
+Min copy number of one program:  1
+Median copy number:  1
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+Best graph: ([start {:path (start start accept accept accept start start start), :input [() ()], :aux-struct nil}] {:nodes #{accept start}, :edges ({:read a, :to start, :from start} {:read b, :to accept, :from start} {:read :epsilon, :to accept, :from start}), :accept-nodes (accept)})
+
+Producing offspring...
+Installing next generation...
+
+-----
+Processing generation: 2
+Computing errors...
+Done computing errors.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -*- Report at generation 2
+Current time: 1305685474480
+Best program: (add-connected-node add-edge (nth-next nth-next) (add-edge) (((remove-edge) add-edge start add-connected-node nth-next) remove-edge (29 start (add-edge connect-to-accept (nth-next))) ((connect-to-accept remove-edge 32) add-nth-edge (accept ((remove-node add-nth-edge accept (accept add-nth-edge)) remove-edge start 25) remove-node) (add-nth-edge)) start))
+Errors: (1)
+Total: 1
+History: (1 1 11)
+Size: 48
+--- Population Statistics ---
+Average total errors in population: 10.88
+Median total errors in population: 11
+Average program size in population (points): 24.028
+Number of unique programs in population:  210
+Max copy number of one program:  16
+Min copy number of one program:  1
+Median copy number:  1
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+Best graph: ([start {:path (start start accept accept accept start start start), :input [() ()], :aux-struct nil}] {:nodes #{accept start}, :edges ({:read a, :to start, :from start} {:read b, :to accept, :from start} {:read :epsilon, :to accept, :from start}), :accept-nodes (accept)})
+
+Producing offspring...
+Installing next generation...
+
+-----
+Processing generation: 3
+Computing errors...
+Done computing errors.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -*- Report at generation 3
+Current time: 1305685475227
+Best program: (add-connected-node add-edge (nth-next nth-next) (add-edge) (((remove-edge) add-edge start add-connected-node nth-next) remove-edge (29 start (add-edge connect-to-accept (nth-next))) ((connect-to-accept remove-edge 32) add-nth-edge (accept ((remove-node add-nth-edge accept (prev add-nth-edge)) remove-edge start 25) remove-node) (add-nth-edge)) start))
+Errors: (1)
+Total: 1
+History: (1 1 1 11)
+Size: 48
+--- Population Statistics ---
+Average total errors in population: 9.028
+Median total errors in population: 10
+Average program size in population (points): 39.488
+Number of unique programs in population:  155
+Max copy number of one program:  35
+Min copy number of one program:  1
+Median copy number:  1
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+Best graph: ([start {:path (start start accept accept accept start start start), :input [() ()], :aux-struct nil}] {:nodes #{accept start}, :edges ({:read a, :to start, :from start} {:read b, :to accept, :from start} {:read :epsilon, :to accept, :from start}), :accept-nodes (accept)})
+
+Producing offspring...
+Installing next generation...
+
+-----
+Processing generation: 4
+Computing errors...
+Done computing errors.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -*- Report at generation 4
+Current time: 1305685476178
+Best program: (add-connected-node add-edge (nth-next nth-next) (add-edge) (((remove-edge) add-edge nth-next add-connected-node nth-next) remove-edge (29 start (add-edge connect-to-accept (nth-next))) ((connect-to-accept remove-edge 32) add-nth-edge (accept ((remove-node add-nth-edge accept (prev add-nth-edge)) remove-edge start 25) remove-node) (add-nth-edge)) start))
+Errors: (1)
+Total: 1
+History: (1 1 1 1 11)
+Size: 48
+--- Population Statistics ---
+Average total errors in population: 4.856
+Median total errors in population: 3
+Average program size in population (points): 46.58
+Number of unique programs in population:  155
+Max copy number of one program:  34
+Min copy number of one program:  1
+Median copy number:  1
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+Best graph: ([start {:path (start start accept accept accept start start), :input [() ()], :aux-struct nil}] {:nodes #{accept start}, :edges ({:read a, :to start, :from start} {:read b, :to accept, :from start} {:read :epsilon, :to accept, :from start}), :accept-nodes (accept)})
+
+Producing offspring...
+Installing next generation...
+
+-----
+Processing generation: 5
+Computing errors...
+Done computing errors.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -*- Report at generation 5
+Current time: 1305685477038
+Best program: (add-connected-node add-edge (nth-next nth-next) (add-edge) (((prev) nth-node (remove-edge)) remove-edge (29 start (add-edge connect-to-accept (nth-next))) ((connect-to-accept remove-edge 32) add-nth-edge (accept ((remove-node add-nth-edge accept (prev add-nth-edge)) remove-edge start 25) remove-node) (add-nth-edge)) prev))
+Errors: (1)
+Total: 1
+History: (1 1 1 1 1 11)
+Size: 47
+--- Population Statistics ---
+Average total errors in population: 2.66
+Median total errors in population: 1
+Average program size in population (points): 46.044
+Number of unique programs in population:  156
+Max copy number of one program:  29
+Min copy number of one program:  1
+Median copy number:  1
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+Best graph: ([start {:path (start start accept accept accept start start), :input [() ()], :aux-struct nil}] {:nodes #{accept start}, :edges ({:read a, :to start, :from start} {:read b, :to accept, :from start} {:read :epsilon, :to accept, :from start}), :accept-nodes (accept)})
+
+Producing offspring...
+Installing next generation...
+
+-----
+Processing generation: 6
+Computing errors...
+Done computing errors.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -*- Report at generation 6
+Current time: 1305685477883
+Best program: (add-connected-node add-edge add-edge (add-edge) (((remove-edge) add-edge start add-connected-node nth-next) remove-edge (29 start (add-edge connect-to-accept (nth-next))) ((connect-to-accept remove-edge start) add-nth-edge (accept ((remove-node add-nth-edge accept (prev add-nth-edge)) remove-edge start 25) remove-node) (add-nth-edge)) start))
+Errors: (1)
+Total: 1
+History: (1 1 1 1 1 1 11)
+Size: 46
+--- Population Statistics ---
+Average total errors in population: 2.708
+Median total errors in population: 1
+Average program size in population (points): 46.428
+Number of unique programs in population:  176
+Max copy number of one program:  18
+Min copy number of one program:  1
+Median copy number:  1
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+Best graph: ([start {:path (start start accept accept accept start start start start), :input [() ()], :aux-struct nil}] {:nodes #{accept start}, :edges ({:read a, :to start, :from start} {:read b, :to start, :from accept} {:read b, :to start, :from start} {:read b, :to accept, :from start} {:read :epsilon, :to accept, :from start}), :accept-nodes (accept)})
+
+Producing offspring...
+Installing next generation...
+
+-----
+Processing generation: 7
+Computing errors...
+Done computing errors.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -*- Report at generation 7
+Current time: 1305685478723
+Best program: (add-connected-node add-edge (nth-next nth-next) (add-edge) (((remove-edge) add-edge start remove-edge nth-next) remove-edge add-connected-node ((connect-to-accept remove-edge 32) add-nth-edge (accept ((remove-node add-nth-edge accept (prev add-nth-edge)) remove-edge start 25) remove-node) (add-nth-edge)) start))
+Errors: (1)
+Total: 1
+History: (1 1 1 1 1 1 1 11)
+Size: 41
+--- Population Statistics ---
+Average total errors in population: 2.676
+Median total errors in population: 1
+Average program size in population (points): 44.632
+Number of unique programs in population:  196
+Max copy number of one program:  8
+Min copy number of one program:  1
+Median copy number:  1
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+Best graph: ([start {:path (start start accept accept accept start), :input [() ()], :aux-struct nil}] {:nodes #{accept start}, :edges ({:read a, :to start, :from start} {:read b, :to accept, :from start} {:read :epsilon, :to accept, :from start}), :accept-nodes (accept)})
+
+Producing offspring...
+Installing next generation...
+
+-----
+Processing generation: 8
+Computing errors...
+Done computing errors.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -*- Report at generation 8
+Current time: 1305685479512
+Best program: (add-connected-node add-edge (nth-next nth-next) (add-edge) (((remove-edge) add-edge start add-connected-node nth-next) remove-edge (29 start (add-edge connect-to-accept (nth-next))) (nth-next add-nth-edge (accept ((remove-node add-nth-edge accept (prev add-nth-edge)) remove-edge start 25) remove-node) (add-nth-edge)) start))
+Errors: (1)
+Total: 1
+History: (1 1 1 1 1 1 1 1 11)
+Size: 45
+--- Population Statistics ---
+Average total errors in population: 2.94
+Median total errors in population: 1
+Average program size in population (points): 45.696
+Number of unique programs in population:  187
+Max copy number of one program:  9
+Min copy number of one program:  1
+Median copy number:  1
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+Best graph: ([start {:path (start start accept accept accept start start start), :input [() ()], :aux-struct nil}] {:nodes #{accept start}, :edges ({:read a, :to start, :from start} {:read b, :to start, :from accept} {:read b, :to accept, :from start} {:read :epsilon, :to accept, :from start}), :accept-nodes (accept)})
+
+Producing offspring...
+Installing next generation...
+
+-----
+Processing generation: 9
+Computing errors...
+Done computing errors.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -*- Report at generation 9
+Current time: 1305685480307
+Best program: (add-connected-node add-edge (nth-next nth-next) (add-edge) (((remove-edge) add-edge start add-edge nth-next) connect-to-accept (29 start (add-edge connect-to-accept start)) ((connect-to-accept remove-edge 32) add-nth-edge (accept ((remove-node add-nth-edge accept (prev add-nth-edge)) remove-edge start 25) remove-node) (add-nth-edge)) start))
+Errors: (1)
+Total: 1
+History: (1 1 1 1 1 1 1 1 1 11)
+Size: 47
+--- Population Statistics ---
+Average total errors in population: 2.836
+Median total errors in population: 1
+Average program size in population (points): 45.16
+Number of unique programs in population:  201
+Max copy number of one program:  5
+Min copy number of one program:  1
+Median copy number:  1
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+Best graph: ([start {:path (start start accept accept accept start start start), :input [() ()], :aux-struct nil}] {:nodes #{accept start}, :edges ({:read a, :to start, :from start} {:read b, :to accept, :from start} {:read :epsilon, :to accept, :from start}), :accept-nodes (accept)})
+
+Producing offspring...
+Installing next generation...
+
+-----
+Processing generation: 10
+Computing errors...
+Done computing errors.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -*- Report at generation 10
+Current time: 1305685481102
+Best program: (add-connected-node add-edge (nth-next nth-next) (add-edge) (((remove-edge) add-edge start remove-edge nth-next) remove-edge (29 start add-nth-edge) ((connect-to-accept remove-edge 32) add-nth-edge (accept ((remove-node add-nth-edge accept (prev add-nth-edge)) remove-edge start 25) remove-node) (add-nth-edge)) start))
+Errors: (1)
+Total: 1
+History: (1 1 1 1 1 1 1 1 1 1 11)
+Size: 44
+--- Population Statistics ---
+Average total errors in population: 2.832
+Median total errors in population: 1
+Average program size in population (points): 45.192
+Number of unique programs in population:  208
+Max copy number of one program:  4
+Min copy number of one program:  1
+Median copy number:  1
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+Best graph: ([start {:path (start start accept accept accept start start), :input [() ()], :aux-struct nil}] {:nodes #{accept start}, :edges ({:read a, :to start, :from start} {:read b, :to accept, :from start} {:read :epsilon, :to accept, :from start}), :accept-nodes (accept)})
+
+Producing offspring...
+Installing next generation...
+
+-----
+Processing generation: 11
+Computing errors...
+Done computing errors.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -*- Report at generation 11
+Current time: 1305685481884
+Best program: (add-connected-node add-edge (nth-next nth-next) add-nth-edge (((remove-edge) add-edge start add-connected-node start) remove-edge (29 start ((remove-node) connect-to-accept (nth-next))) ((connect-to-accept remove-edge 32) add-nth-edge (accept ((remove-node add-nth-edge accept remove-node) remove-edge start 25) remove-node) (add-nth-edge)) start))
+Errors: (1)
+Total: 1
+History: (1 1 1 1 1 1 1 1 1 1 1 11)
+Size: 46
+--- Population Statistics ---
+Average total errors in population: 2.932
+Median total errors in population: 1
+Average program size in population (points): 44.788
+Number of unique programs in population:  210
+Max copy number of one program:  4
+Min copy number of one program:  1
+Median copy number:  1
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+Best graph: ([start {:path (start start accept accept start start start start), :input [() ()], :aux-struct nil}] {:nodes #{accept start}, :edges ({:read a, :to start, :from start} {:read b, :to accept, :from start} {:read :epsilon, :to accept, :from start}), :accept-nodes (accept)})
+
+Producing offspring...
+Installing next generation...
+
+-----
+Processing generation: 12
+Computing errors...
+Done computing errors.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -*- Report at generation 12
+Current time: 1305685482665
+Best program: (add-connected-node add-edge (nth-next nth-next) (add-edge) (((remove-edge) add-edge start (accept add-connected-node) nth-next) remove-edge (29 start (add-edge connect-to-accept (nth-next))) ((connect-to-accept remove-edge 32) add-nth-edge (accept ((nth-next add-nth-edge accept (prev add-nth-edge)) remove-edge start 25) remove-node) (add-nth-edge)) start))
+Errors: (0)
+Total: 0
+History: (0 1 1 1 1 1 1 1 1 1 1 1 11)
+Size: 50
+--- Population Statistics ---
+Average total errors in population: 2.732
+Median total errors in population: 1
+Average program size in population (points): 45.14
+Number of unique programs in population:  207
+Max copy number of one program:  6
+Min copy number of one program:  1
+Median copy number:  1
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+Best graph: ([start {:path (start start accept accept accept accept start start start accept start), :input [nil (b b)], :aux-struct nil}] {:nodes #{accept start}, :edges ({:read a, :to start, :from start} {:read b, :to accept, :from start}), :accept-nodes (accept)})
+
+
+SUCCESS at generation 12
+Successful program: (add-connected-node add-edge (nth-next nth-next) (add-edge) (((remove-edge) add-edge start (accept add-connected-node) nth-next) remove-edge (29 start (add-edge connect-to-accept (nth-next))) ((connect-to-accept remove-edge 32) add-nth-edge (accept ((nth-next add-nth-edge accept (prev add-nth-edge)) remove-edge start 25) remove-node) (add-nth-edge)) start))
+Errors: (0)
+Total error: 0
+History: (0 1 1 1 1 1 1 1 1 1 1 1 11)
+Size: 50
+
+
+Auto-simplifying with starting size: 50
+step: 0
+program: (add-connected-node add-edge (nth-next nth-next) (add-edge) (((remove-edge) add-edge start (accept add-connected-node) nth-next) remove-edge (29 start (add-edge connect-to-accept (nth-next))) ((connect-to-accept remove-edge 32) add-nth-edge (accept ((nth-next add-nth-edge accept (prev add-nth-edge)) remove-edge start 25) remove-node) (add-nth-edge)) start))
+errors: (0)
+total: 0
+size: 50
+#<Namespace examples.regexp>
+examples.regexp> 

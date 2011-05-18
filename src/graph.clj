@@ -33,18 +33,18 @@ aux-struct is an auxilary data structure that may be updated as the graph proces
     {:transition-rule (fn [loc]
 			(assert (meta loc))
 			 (fn [input]
-			  (keep #(if ((:test %) loc input)
-			  	   ((:transition-update %) loc input))
-			  	(filter #(= (loc 0) (:from %)) (:edges (meta loc)))))) ;; also tried with mapcar, filtering out nils from a for loop
+			   (let [transitions (transient [])]
+			     (doseq [edge (:edges (meta loc))]
+			       (if (and (= (loc 0) (:from edge))
+					((:test edge) loc input))
+				 (conj! transitions
+					((:transition-update edge) loc input))))
+			     (seq (persistent! transitions)))))
+			   ;; (keep #(if ((:test %) loc input)
+			   ;; 	   ((:transition-update %) loc input))
+			   ;; 	(filter #(= (loc 0) (:from %)) (:edges (meta loc)))))) ;; also tried with mapcar, filtering out nils from a for loop
      :nodes nodes :edges edges
      :accept-rule accept-rule :reject-rule reject-rule}))
-;; (let [transitions (transient [])]
-;;   (doseq [edge (:edges (meta loc))]
-;;     (if (and (= (loc 0) (:from edge))
-;; 		((:test edge) loc input))
-;; 	(conj! transitions
-;; 	       ((:transition-update edge) loc input))))
-;;   (seq (persistent! transitions)))))
 
 (defn make-graph
   "Returns a new graph of the same type as input graph loc, with new instance data."

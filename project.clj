@@ -6,7 +6,7 @@
                  [org.clojure/clojure-contrib "1.2.0"]]
   :jvm-opts ["-Xmx1536m"]
   :aot [aux graph graph-utils.fa examples.regexp]
-  :main examples.regexp
+  :main runner
   :url "http:/github.org/etosch/graph")
 ;;  "-agentlib:hprof=heap=sites"]
 ;;  "-javaagent:/home/g/grad/etosch/Downloads/AppDynamicsLite/AppServerAgentLite/javaagent.jar"]
